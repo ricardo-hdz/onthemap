@@ -17,6 +17,10 @@
 		E6702FF41B96A8C0009B0C0B /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6702FF11B96A8C0009B0C0B /* Roboto-Medium.ttf */; };
 		E6702FF51B96A8C0009B0C0B /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6702FF21B96A8C0009B0C0B /* Roboto-Regular.ttf */; };
 		E6702FF61B96A8C0009B0C0B /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6702FF31B96A8C0009B0C0B /* Roboto-Thin.ttf */; };
+		E6702FF81B96B44F009B0C0B /* LoginTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6702FF71B96B44F009B0C0B /* LoginTextfield.swift */; };
+		E6702FFA1B96BDF2009B0C0B /* OnTheMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6702FF91B96BDF2009B0C0B /* OnTheMapHelper.swift */; };
+		E6702FFC1B96BE96009B0C0B /* OnTheMapConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6702FFB1B96BE96009B0C0B /* OnTheMapConstants.swift */; };
+		E6702FFE1B9749E6009B0C0B /* OnTheMapUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6702FFD1B9749E6009B0C0B /* OnTheMapUtilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,10 @@
 		E6702FF11B96A8C0009B0C0B /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		E6702FF21B96A8C0009B0C0B /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		E6702FF31B96A8C0009B0C0B /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		E6702FF71B96B44F009B0C0B /* LoginTextfield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTextfield.swift; sourceTree = "<group>"; };
+		E6702FF91B96BDF2009B0C0B /* OnTheMapHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnTheMapHelper.swift; sourceTree = "<group>"; };
+		E6702FFB1B96BE96009B0C0B /* OnTheMapConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnTheMapConstants.swift; sourceTree = "<group>"; };
+		E6702FFD1B9749E6009B0C0B /* OnTheMapUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnTheMapUtilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +136,9 @@
 		E6702FEA1B96A3D5009B0C0B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E6702FF91B96BDF2009B0C0B /* OnTheMapHelper.swift */,
+				E6702FFB1B96BE96009B0C0B /* OnTheMapConstants.swift */,
+				E6702FFD1B9749E6009B0C0B /* OnTheMapUtilities.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -135,6 +146,7 @@
 		E6702FEB1B96A3DA009B0C0B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E6702FF71B96B44F009B0C0B /* LoginTextfield.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -252,7 +264,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6702FEE1B96A4C8009B0C0B /* LoginViewController.swift in Sources */,
+				E6702FFC1B96BE96009B0C0B /* OnTheMapConstants.swift in Sources */,
+				E6702FFA1B96BDF2009B0C0B /* OnTheMapHelper.swift in Sources */,
+				E6702FF81B96B44F009B0C0B /* LoginTextfield.swift in Sources */,
 				E6702FF01B96A5A8009B0C0B /* MapViewController.swift in Sources */,
+				E6702FFE1B9749E6009B0C0B /* OnTheMapUtilities.swift in Sources */,
 				E6702FCB1B96A2BA009B0C0B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
