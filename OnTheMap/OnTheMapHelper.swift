@@ -25,12 +25,34 @@ class OnTheMapHelper: NSObject {
         return Singleton.instance
     }
     
-    func taskForGet() {
+    func taskForGet(method: String, params: [String: AnyObject]?, callback: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+        let urlString = ParseApi.Endpoint + ParseApi.ClassApi + method// + self.escapedParameters(params!)
+        
+        let URL = NSURL(string: urlString)
+        
+        let request = NSMutableURLRequest(URL: URL!)
+        request.HTTPMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        request.addValue(ParseApi.Headers.AppIdValue, forHTTPHeaderField: ParseApi.Headers.AppIdKey)
+        request.addValue(ParseApi.Headers.RestApiValue, forHTTPHeaderField: ParseApi.Headers.RestApiKey)
+        
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            if let error = error {
+                callback(result: nil, error: error)
+            } else {
+                self.parseResponseData(data, postProcessor: nil, callback: callback)
+            }
+        }
+        
+        task.resume()
+        return task
     }
     
-    func taskforPOST(method: String, params: [String: AnyObject], jsonBody: [String: AnyObject], callback: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func taskforPOST(method: String, jsonBody: [String: AnyObject], callback: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
-        let urlString = API.udacityEndpoint + method + self.escapedParameters(params)
+        let urlString = API.udacityEndpoint + API.udacityApi + method
         
         let url = NSURL(string: urlString)
         
@@ -40,14 +62,12 @@ class OnTheMapHelper: NSObject {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.HTTPBody = self.parseJSONBody(jsonBody)
-
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if let error = error {
                 callback(result: nil, error: error)
             } else {
-                // parse data
-                self.parseResponseData(data, callback: callback)
+                self.parseResponseData(data, postProcessor: self.trimResponse, callback: callback)
             }
         }
         task.resume();

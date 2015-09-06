@@ -21,6 +21,13 @@
 		E6702FFA1B96BDF2009B0C0B /* OnTheMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6702FF91B96BDF2009B0C0B /* OnTheMapHelper.swift */; };
 		E6702FFC1B96BE96009B0C0B /* OnTheMapConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6702FFB1B96BE96009B0C0B /* OnTheMapConstants.swift */; };
 		E6702FFE1B9749E6009B0C0B /* OnTheMapUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6702FFD1B9749E6009B0C0B /* OnTheMapUtilities.swift */; };
+		E67030001B97B569009B0C0B /* UdacityProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6702FFF1B97B569009B0C0B /* UdacityProfile.swift */; };
+		E67030021B9A4DBF009B0C0B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67030011B9A4DBF009B0C0B /* MapKit.framework */; };
+		E67030041B9A50D1009B0C0B /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67030031B9A50D1009B0C0B /* ListViewController.swift */; };
+		E67030061B9B3DBD009B0C0B /* MenuTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67030051B9B3DBD009B0C0B /* MenuTabController.swift */; };
+		E67030081B9B3EC3009B0C0B /* ListMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67030071B9B3EC3009B0C0B /* ListMapViewController.swift */; };
+		E670300A1B9C9F56009B0C0B /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67030091B9C9F56009B0C0B /* StudentLocation.swift */; };
+		E670300C1B9CDF25009B0C0B /* ListMapViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E670300B1B9CDF25009B0C0B /* ListMapViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +59,13 @@
 		E6702FF91B96BDF2009B0C0B /* OnTheMapHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnTheMapHelper.swift; sourceTree = "<group>"; };
 		E6702FFB1B96BE96009B0C0B /* OnTheMapConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnTheMapConstants.swift; sourceTree = "<group>"; };
 		E6702FFD1B9749E6009B0C0B /* OnTheMapUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnTheMapUtilities.swift; sourceTree = "<group>"; };
+		E6702FFF1B97B569009B0C0B /* UdacityProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityProfile.swift; sourceTree = "<group>"; };
+		E67030011B9A4DBF009B0C0B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		E67030031B9A50D1009B0C0B /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		E67030051B9B3DBD009B0C0B /* MenuTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTabController.swift; sourceTree = "<group>"; };
+		E67030071B9B3EC3009B0C0B /* ListMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMapViewController.swift; sourceTree = "<group>"; };
+		E67030091B9C9F56009B0C0B /* StudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
+		E670300B1B9CDF25009B0C0B /* ListMapViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMapViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E67030021B9A4DBF009B0C0B /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +90,7 @@
 		E6702FBC1B96A2BA009B0C0B = {
 			isa = PBXGroup;
 			children = (
+				E67030011B9A4DBF009B0C0B /* MapKit.framework */,
 				E6702FC71B96A2BA009B0C0B /* OnTheMap */,
 				E6702FDD1B96A2BA009B0C0B /* OnTheMapTests */,
 				E6702FC61B96A2BA009B0C0B /* Products */,
@@ -139,6 +155,8 @@
 				E6702FF91B96BDF2009B0C0B /* OnTheMapHelper.swift */,
 				E6702FFB1B96BE96009B0C0B /* OnTheMapConstants.swift */,
 				E6702FFD1B9749E6009B0C0B /* OnTheMapUtilities.swift */,
+				E6702FFF1B97B569009B0C0B /* UdacityProfile.swift */,
+				E67030091B9C9F56009B0C0B /* StudentLocation.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -147,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				E6702FF71B96B44F009B0C0B /* LoginTextfield.swift */,
+				E670300B1B9CDF25009B0C0B /* ListMapViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -156,6 +175,9 @@
 			children = (
 				E6702FED1B96A4C8009B0C0B /* LoginViewController.swift */,
 				E6702FEF1B96A5A8009B0C0B /* MapViewController.swift */,
+				E67030031B9A50D1009B0C0B /* ListViewController.swift */,
+				E67030051B9B3DBD009B0C0B /* MenuTabController.swift */,
+				E67030071B9B3EC3009B0C0B /* ListMapViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -263,12 +285,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E670300A1B9C9F56009B0C0B /* StudentLocation.swift in Sources */,
 				E6702FEE1B96A4C8009B0C0B /* LoginViewController.swift in Sources */,
 				E6702FFC1B96BE96009B0C0B /* OnTheMapConstants.swift in Sources */,
+				E67030061B9B3DBD009B0C0B /* MenuTabController.swift in Sources */,
 				E6702FFA1B96BDF2009B0C0B /* OnTheMapHelper.swift in Sources */,
+				E67030001B97B569009B0C0B /* UdacityProfile.swift in Sources */,
 				E6702FF81B96B44F009B0C0B /* LoginTextfield.swift in Sources */,
+				E67030041B9A50D1009B0C0B /* ListViewController.swift in Sources */,
 				E6702FF01B96A5A8009B0C0B /* MapViewController.swift in Sources */,
+				E67030081B9B3EC3009B0C0B /* ListMapViewController.swift in Sources */,
 				E6702FFE1B9749E6009B0C0B /* OnTheMapUtilities.swift in Sources */,
+				E670300C1B9CDF25009B0C0B /* ListMapViewCell.swift in Sources */,
 				E6702FCB1B96A2BA009B0C0B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,6 +493,7 @@
 				E6702FE61B96A2BA009B0C0B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E6702FE71B96A2BA009B0C0B /* Build configuration list for PBXNativeTarget "OnTheMapTests" */ = {
 			isa = XCConfigurationList;
@@ -473,6 +502,7 @@
 				E6702FE91B96A2BA009B0C0B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
