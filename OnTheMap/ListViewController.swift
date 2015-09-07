@@ -23,6 +23,13 @@ class ListViewController : ListMapViewController, UITableViewDataSource, UITable
         super.viewWillAppear(true)
     }
     
+    func refreshAction() {
+        self.studentLocations = [StudentLocation]() // reset locations
+        self.getStudentLocations() {
+            self.locationList.reloadData()
+        }
+    }
+    
     @objc func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         println("Displaying \(self.studentLocations.count) in list view")
         return self.studentLocations.count

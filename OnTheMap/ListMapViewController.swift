@@ -25,13 +25,22 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
         Sets the navigation bar buttons
     **/
     func setNavigationBarItems() {
+        // Logout Button
         var logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logoutAction")
         self.navigationItem.leftBarButtonItem = logoutButton
         
+        // Refresh Button
         var refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refreshAction")
-        let pinImage = UIImage(named: "pin")
-        var pinButton = UIBarButtonItem(image: pinImage!, style: UIBarButtonItemStyle.Plain, target: self, action: "pinAction")
-        self.navigationItem.rightBarButtonItems = [pinButton, refreshButton]
+        // Pin Button
+        let iconView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        iconView.contentMode = UIViewContentMode.ScaleAspectFit
+        let pinIcon = UIImage(named: "pin")
+        iconView.image = pinIcon
+
+        var pinButton2 = UIBarButtonItem(customView: iconView)
+        pinButton2.action = "pinAction"
+        pinButton2.target = self
+        self.navigationItem.rightBarButtonItems = [pinButton2, refreshButton]
         
         self.tabBarController?.tabBar.hidden = false
     }

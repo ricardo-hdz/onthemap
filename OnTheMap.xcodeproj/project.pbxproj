@@ -28,6 +28,8 @@
 		E67030081B9B3EC3009B0C0B /* ListMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67030071B9B3EC3009B0C0B /* ListMapViewController.swift */; };
 		E670300A1B9C9F56009B0C0B /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67030091B9C9F56009B0C0B /* StudentLocation.swift */; };
 		E670300C1B9CDF25009B0C0B /* ListMapViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E670300B1B9CDF25009B0C0B /* ListMapViewCell.swift */; };
+		E670300E1B9D0AC1009B0C0B /* PostLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E670300D1B9D0AC1009B0C0B /* PostLocationViewController.swift */; };
+		E67030101B9D1EFB009B0C0B /* CustomTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = E670300F1B9D1EFB009B0C0B /* CustomTextfield.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,8 @@
 		E67030071B9B3EC3009B0C0B /* ListMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMapViewController.swift; sourceTree = "<group>"; };
 		E67030091B9C9F56009B0C0B /* StudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
 		E670300B1B9CDF25009B0C0B /* ListMapViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMapViewCell.swift; sourceTree = "<group>"; };
+		E670300D1B9D0AC1009B0C0B /* PostLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostLocationViewController.swift; sourceTree = "<group>"; };
+		E670300F1B9D1EFB009B0C0B /* CustomTextfield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextfield.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +170,7 @@
 			children = (
 				E6702FF71B96B44F009B0C0B /* LoginTextfield.swift */,
 				E670300B1B9CDF25009B0C0B /* ListMapViewCell.swift */,
+				E670300F1B9D1EFB009B0C0B /* CustomTextfield.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -178,6 +183,7 @@
 				E67030031B9A50D1009B0C0B /* ListViewController.swift */,
 				E67030051B9B3DBD009B0C0B /* MenuTabController.swift */,
 				E67030071B9B3EC3009B0C0B /* ListMapViewController.swift */,
+				E670300D1B9D0AC1009B0C0B /* PostLocationViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -289,6 +295,8 @@
 				E6702FEE1B96A4C8009B0C0B /* LoginViewController.swift in Sources */,
 				E6702FFC1B96BE96009B0C0B /* OnTheMapConstants.swift in Sources */,
 				E67030061B9B3DBD009B0C0B /* MenuTabController.swift in Sources */,
+				E670300E1B9D0AC1009B0C0B /* PostLocationViewController.swift in Sources */,
+				E67030101B9D1EFB009B0C0B /* CustomTextfield.swift in Sources */,
 				E6702FFA1B96BDF2009B0C0B /* OnTheMapHelper.swift in Sources */,
 				E67030001B97B569009B0C0B /* UdacityProfile.swift in Sources */,
 				E6702FF81B96B44F009B0C0B /* LoginTextfield.swift in Sources */,
