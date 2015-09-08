@@ -899,13 +899,16 @@
                     </view>
                     <navigationItem key="navigationItem" id="CNZ-dC-Vo7"/>
                     <connections>
-                        <outlet property="aboutTextfield" destination="g9C-qq-WI0" id="NSb-yn-SFD"/>
-                        <outlet property="bottomView" destination="bR9-Op-8HH" id="02l-VV-LQs"/>
-                        <outlet property="errorLabel" destination="0PQ-J9-hyn" id="Nrq-cQ-Qbm"/>
+                        <outlet property="bottomViewStepOne" destination="bR9-Op-8HH" id="Vef-He-7E0"/>
+                        <outlet property="locationErrorLabel" destination="0PQ-J9-hyn" id="TfQ-dd-Iil"/>
+                        <outlet property="locationMap" destination="9fA-NF-9jM" id="Foe-uS-p8o"/>
                         <outlet property="locationTextfield" destination="a7u-p3-uPh" id="5tx-Ww-xrW"/>
                         <outlet property="mapItButton" destination="YYc-0f-RQX" id="ykZ-Wn-Eh9"/>
                         <outlet property="submitButton" destination="tOd-HZ-DkJ" id="abO-eu-v2D"/>
-                        <outlet property="upperView" destination="QpA-Ge-XQX" id="1XP-lC-k83"/>
+                        <outlet property="tellUsErrorLabel" destination="eX4-IR-Twx" id="6ox-I5-dBL"/>
+                        <outlet property="tellsUsAboutTextfield" destination="g9C-qq-WI0" id="3fU-KD-GOK"/>
+                        <outlet property="topViewStepOne" destination="QpA-Ge-XQX" id="UFa-Fd-BPx"/>
+                        <outlet property="topViewStepTwo" destination="ons-Eu-S1F" id="BUv-RG-qLE"/>
                         <outlet property="whereLabel" destination="D8I-YB-Rrp" id="SwH-ab-gfO"/>
                     </connections>
                 </viewController>

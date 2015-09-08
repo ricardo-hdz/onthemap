@@ -61,7 +61,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
                 ]
             ]
             
-            var task = OnTheMapHelper.getInstance().taskforPOST(OnTheMapHelper.API.Methods.session, jsonBody: payload) { result, error in
+            let serviceEndpoint = OnTheMapHelper.API.udacityEndpoint + OnTheMapHelper.API.udacityApi
+            
+            let headers: NSMutableDictionary = [:]
+            
+            var task = OnTheMapHelper.getInstance().taskforPOST(OnTheMapHelper.API.Methods.session, serviceEndpoint: serviceEndpoint, headers: headers, jsonBody: payload)  { result, error in
                 if let error = error {
                     self.displayLoginError(error.localizedDescription)
                 } else {

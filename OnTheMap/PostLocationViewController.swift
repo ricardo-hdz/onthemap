@@ -14,17 +14,22 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     
     @IBOutlet weak var locationMap: MKMapView!
     
-    @IBOutlet weak var upperView: UIView!
-    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var topViewStepOne: UIView!
+    @IBOutlet weak var bottomViewStepOne: UIView!
+    @IBOutlet weak var topViewStepTwo: UIView!
     
     @IBOutlet weak var whereLabel: UILabel!
-    @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var locationErrorLabel: UILabel!
+    @IBOutlet weak var tellUsErrorLabel: UILabel!
     
-    @IBOutlet weak var aboutTextfield: CustomTextfield!
+    @IBOutlet weak var tellsUsAboutTextfield: CustomTextfield!
     @IBOutlet weak var locationTextfield: CustomTextfield!
     
     @IBOutlet weak var mapItButton: UIButton!
     @IBOutlet weak var submitButton: UIButton!
+    
+    var udacityProfile: UdacityProfile?
+    var studentLocation: StudentLocation?
     
     var search: MKLocalSearch!
     var searchRequest: MKLocalSearchRequest!
@@ -40,12 +45,11 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        locationTextfield.delegate = self
-        aboutTextfield.delegate = self
+        self.locationTextfield.delegate = self
+        self.tellsUsAboutTextfield.delegate = self
         self.subscribeToKeyboardNotifications()
     }
 
-    
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(true)
         self.unsubscribeFromKeyboardNotifications()
@@ -53,22 +57,47 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        
         self.mapItButton.layer.cornerRadius = 5
+        self.displayControls()
+        self.setNavigationBar()
+    }
+    
+    func displayControls() {
+        // Views
+        self.topViewStepOne.hidden = false
+        self.bottomViewStepOne.hidden = false
+        self.topViewStepTwo.hidden = true
+        self.locationMap.hidden = true
         
+        // Controls - Step 1
         self.whereLabel.hidden = false
         self.locationTextfield.hidden = false
+        self.locationErrorLabel.hidden = true
         self.mapItButton.hidden = false
+        
+        // Controls - Step 2
+        self.tellsUsAboutTextfield.hidden = true
+        self.tellUsErrorLabel.hidden = true
         self.submitButton.hidden = true
-        self.errorLabel.hidden = true
-        self.locationMap.hidden = true
-        self.aboutTextfield.hidden = true
+    }
+    
+    func displayControlsMap() {
+        // Views
+        self.topViewStepOne.hidden = true
+        self.bottomViewStepOne.hidden = true
+        self.topViewStepTwo.hidden = false
+        self.locationMap.hidden = false
         
-        /*self.upperView.backgroundColor = UIColor(red: 170.0, green: 170.0, blue: 170.0, alpha: 1.0)
+        // Controls - Step 1
+        self.whereLabel.hidden = true
+        self.locationTextfield.hidden = true
+        self.locationErrorLabel.hidden = true
+        self.mapItButton.hidden = true
         
-        self.bottomView.backgroundColor = UIColor(red: 45, green: 109, blue: 229, alpha: 1.0)*/
-        
-        self.setNavigationBar()
+        // Controls - Step 2
+        self.tellsUsAboutTextfield.hidden = false
+        self.tellUsErrorLabel.hidden = true
+        self.submitButton.hidden = false
     }
     
     func setNavigationBar() {
@@ -89,11 +118,41 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     
     @IBAction func postLocation(sender: AnyObject) {
         // Post data
-        if (aboutTextfield.text.isEmpty || aboutTextfield.text == "Tell us about you!") {
-            self.handleLocationSearchError("Don't be shy. Share something with us.")
+        if (self.tellsUsAboutTextfield.text.isEmpty || self.tellsUsAboutTextfield.text == "Tell us about you!") {
+            self.tellUsErrorLabel.hidden = false
         } else {
             //post
+            let serviceEndpoint = OnTheMapHelper.ParseApi.Endpoint + OnTheMapHelper.ParseApi.ClassApi
             
+            var headers : NSMutableDictionary = [:]
+            headers[OnTheMapHelper.ParseApi.Headers.AppIdKey] = OnTheMapHelper.ParseApi.Headers.AppIdValue
+            headers[OnTheMapHelper.ParseApi.Headers.RestApiKey] =
+             OnTheMapHelper.ParseApi.Headers.RestApiValue
+            
+            var payload : [String: AnyObject] = [
+                "uniqueKey": self.studentLocation!.uniqueKey,
+                "firstName": self.studentLocation!.firstName,
+                "lastName": self.studentLocation!.lastName,
+                "mapString": self.locationTextfield.text,
+                "mediaURL": self.tellsUsAboutTextfield.text,
+                "latitude": self.annotationPoint.coordinate.latitude,
+                "longitude": self.annotationPoint.coordinate.longitude
+            ]
+            
+            let task = OnTheMapHelper.getInstance().taskforPOST(OnTheMapHelper.ParseApi.Methods.studentlocation, serviceEndpoint: serviceEndpoint, headers: headers, jsonBody: payload) { result, error in
+                if let error = error {
+                    println("Error while POSTing new location: \(error)")
+                    self.handlePOSTError("Location was not updated. Please try again.")
+                } else {
+                    if let createdAt = result.valueForKey("createdAT") {
+                        // dismiss controller
+                    } else {
+                        var data = NSString(data: result as! NSData, encoding: NSUTF8StringEncoding)
+                        println("Unknown response while posting location: \(data)")
+                        self.handlePOSTError("Location was not updated. Please try again.")
+                    }
+                }
+            }
         }
     }
     
@@ -110,6 +169,7 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
         searchRequest = MKLocalSearchRequest()
         searchRequest.naturalLanguageQuery = locationTextfield.text
         search = MKLocalSearch(request: searchRequest)
+        
         search.startWithCompletionHandler() { response, error in
             if let error = error {
                 self.handleLocationSearchError("Location not found. Please try again.")
@@ -133,27 +193,23 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
                     self.mapRegion = MKCoordinateRegion(center: locationCoord, span: self.mapSpan)
                     self.locationMap.setRegion(self.mapRegion, animated: true)
                     
-                    
-                    // Hide UI
-                    // Display UI
-                    self.whereLabel.hidden = true
-                    self.locationTextfield.hidden = true
-                    self.mapItButton.hidden = true
-                    self.submitButton.hidden = false
-                    self.errorLabel.hidden = true
-                    self.aboutTextfield.hidden = false
-                    
-                    /*self.upperView.backgroundColor = UIColor(red: 45, green: 109, blue: 229, alpha: 1.0)*/
-                    
-                    self.locationMap.hidden = false
+                    // Display step 2
+                    self.displayControlsMap()
                 }
             }
         }
     }
     
     func handleLocationSearchError(error: String) {
-        self.errorLabel.text = error
-        self.errorLabel.hidden = false
+        self.locationErrorLabel.text = error
+        self.locationErrorLabel.hidden = false
+    }
+    
+    func handlePOSTError(error: String) {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.tellUsErrorLabel.text = error
+            self.tellUsErrorLabel.hidden = false
+        })
     }
     
     func clearMapAnnotations() {

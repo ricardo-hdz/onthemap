@@ -50,17 +50,24 @@ class OnTheMapHelper: NSObject {
         return task
     }
     
-    func taskforPOST(method: String, jsonBody: [String: AnyObject], callback: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func taskforPOST(method: String, serviceEndpoint: String, headers: NSMutableDictionary, jsonBody: [String: AnyObject], callback: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
-        let urlString = API.udacityEndpoint + API.udacityApi + method
+        let urlString = serviceEndpoint + method
         
         let url = NSURL(string: urlString)
         
         // Request
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // Add headers
+        headers["application/json"] = "Accept"
+        headers["application/json"] = "Content-Type"
+        
+        for (headerValue, headerField) in headers {
+            request.addValue(headerValue as? String, forHTTPHeaderField: (headerField as? String)! )
+        }
+
         request.HTTPBody = self.parseJSONBody(jsonBody)
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
