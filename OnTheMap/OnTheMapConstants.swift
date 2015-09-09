@@ -20,7 +20,7 @@ extension OnTheMapHelper {
         
         struct Methods {
             static let session: String = "session"
-            static let users: String = "users/{id}"
+            static let users: String = "users/{userId}"
             static let studentlocation: String = "StudentLocation"
             static let updateStudentlocationUpdate: String = Methods.studentlocation + "/{objectId}"
         }

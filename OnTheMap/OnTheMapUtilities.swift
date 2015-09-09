@@ -42,9 +42,9 @@ extension OnTheMapHelper {
             postProcessedResponse = postProcessor!(data: data)
         }
         
-        /*println(NSString(data: data, encoding: NSUTF8StringEncoding))
+        //println(NSString(data: data, encoding: NSUTF8StringEncoding))
         println("Parsed data:")
-        println(NSString(data: postProcessedResponse, encoding: NSUTF8StringEncoding))*/
+        println(NSString(data: postProcessedResponse, encoding: NSUTF8StringEncoding))
 
         let parsedData: AnyObject? = NSJSONSerialization.JSONObjectWithData(postProcessedResponse, options: .AllowFragments, error: &parseError)
         

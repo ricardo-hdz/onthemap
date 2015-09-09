@@ -47,7 +47,14 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
     
     func getStudentLocations(callback: () -> Void) {
         if (self.studentLocations.count == 0) {
-            let task = OnTheMapHelper.getInstance().taskForGet(OnTheMapHelper.ParseApi.Methods.studentlocation, params: nil) { result, error in
+            var endpoint = OnTheMapHelper.ParseApi.Endpoint + OnTheMapHelper.ParseApi.ClassApi
+            
+            var headers: NSMutableDictionary = [
+                OnTheMapHelper.ParseApi.Headers.AppIdKey: OnTheMapHelper.ParseApi.Headers.AppIdValue,
+                OnTheMapHelper.ParseApi.Headers.RestApiKey: OnTheMapHelper.ParseApi.Headers.RestApiValue
+            ]
+            
+            let task = OnTheMapHelper.getInstance().taskForGet(OnTheMapHelper.ParseApi.Methods.studentlocation, serviceEndpoint: endpoint, headers: headers,  params: nil) { result, error in
                 if let error = error {
                     self.handleError(error.localizedDescription)
                 } else {

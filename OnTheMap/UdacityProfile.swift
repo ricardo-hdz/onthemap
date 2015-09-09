@@ -9,12 +9,15 @@
 import Foundation
 
 class UdacityProfile: NSObject {
-    var sessionId: String = ""
-    var userId: String = ""
+    //var sessionId: String?
+    var userId: String?
+    var firstName: String?
+    var lastName: String?
     
-    init(sessionId: String, userId: String) {
-        self.sessionId = sessionId
+    init(userId: String, firstName: String, lastName: String) {
         self.userId = userId
+        self.firstName = firstName
+        self.lastName = lastName
     }
 
 }

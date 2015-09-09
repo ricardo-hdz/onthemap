@@ -129,8 +129,11 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
             headers[OnTheMapHelper.ParseApi.Headers.RestApiKey] =
              OnTheMapHelper.ParseApi.Headers.RestApiValue
             
+            //var profile = self.getSessionProfile()
+            var profile = "1234"
+
             var payload : [String: AnyObject] = [
-                "uniqueKey": self.studentLocation!.uniqueKey,
+                "uniqueKey": profile,
                 "firstName": self.studentLocation!.firstName,
                 "lastName": self.studentLocation!.lastName,
                 "mapString": self.locationTextfield.text,
@@ -144,8 +147,12 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
                     println("Error while POSTing new location: \(error)")
                     self.handlePOSTError("Location was not updated. Please try again.")
                 } else {
-                    if let createdAt = result.valueForKey("createdAT") {
+                    if let createdAt: AnyObject = result.valueForKey("createdAT") {
                         // dismiss controller
+                        println("Succesfully posted location")
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.dismissViewControllerAnimated(true, completion: nil)
+                        })
                     } else {
                         var data = NSString(data: result as! NSData, encoding: NSUTF8StringEncoding)
                         println("Unknown response while posting location: \(data)")
@@ -154,6 +161,11 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
                 }
             }
         }
+    }
+    
+    func getSessionProfile() ->  UdacityProfile {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        return appDelegate.udacityProfile!
     }
     
     // Handler for cancel button

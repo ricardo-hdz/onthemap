@@ -50,7 +50,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     
     @IBAction func loginAction(sender: AnyObject) {
         displayMapViewDirect()
-        /*errorNotification.hidden = true
+        errorNotification.hidden = true
         if (self.validateFields()) {
             var email = emailTextfield.text
             var password = passwordTextfield.text
@@ -71,11 +71,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
                 } else {
                     let sessionId = result.valueForKey(OnTheMapHelper.Response.Session.id) as? String
                     let userId = result.valueForKey(OnTheMapHelper.Response.Account.key) as? String
+                    
                     if (sessionId != nil && userId != nil) {
-                        var profile = UdacityProfile(sessionId: sessionId!, userId: userId!)
                         println("SessionId: \(sessionId)")
                         println("UserId: \(userId)")
-                        self.displayMapView()
+                        
+                        self.getUdacityProfile(userId!)
                     } else {
                         if let svcError = result.valueForKey("error") as? String {
                             self.displayLoginError(svcError)
@@ -83,11 +84,42 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
                     }
                 }
             }
-        }*/
+        }
+    }
+    
+    
+    func getUdacityProfile(userId: String) {
+        var method = OnTheMapHelper.getInstance().replaceParamsInUrl(OnTheMapHelper.API.Methods.users, paramId: "userId", paramValue: userId)
+        var endpoint = OnTheMapHelper.API.udacityEndpoint + OnTheMapHelper.API.udacityApi
+        
+        var task = OnTheMapHelper.getInstance().taskForGet(method!, serviceEndpoint: endpoint, headers: [:], params: nil) { result, error in
+            if let error = error {
+                println("Error while requesting udacity profile")
+            } else {
+                if let user = result.valueForKey("user") as? NSDictionary {
+                    let firstName = user.valueForKey("first_name") as? String
+                    let lastName = user.valueForKey("last_name") as? String
+                    // create profile
+                    var profile = UdacityProfile(userId: userId, firstName: firstName!, lastName: lastName!)
+                    // store it
+                    self.setSessionProfile(profile)
+                    // segue to map view
+                    self.displayMapView()
+                }
+            }
+        }
+    
     }
     
     @IBAction func signupAction(sender: AnyObject) {
         UIApplication.sharedApplication().openURL(NSURL(string: OnTheMapHelper.API.udacityEndpoint)!)
+    }
+    
+    // Sets the profile in the appdelegate for future reference
+    func setSessionProfile(profile: UdacityProfile) {
+        let object = UIApplication.sharedApplication().delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.udacityProfile = profile
     }
     
     func displayMapView() {
