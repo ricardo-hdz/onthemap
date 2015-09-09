@@ -65,7 +65,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
             
             let headers: NSMutableDictionary = [:]
             
-            var task = OnTheMapHelper.getInstance().taskforPOST(OnTheMapHelper.API.Methods.session, serviceEndpoint: serviceEndpoint, headers: headers, jsonBody: payload)  { result, error in
+            var task = OnTheMapHelper.getInstance().taskforPOST(OnTheMapHelper.API.Methods.session, serviceEndpoint: serviceEndpoint, headers: headers, jsonBody: payload, postProcessor: OnTheMapHelper.getInstance().trimResponse)  { result, error in
                 if let error = error {
                     self.displayLoginError(error.localizedDescription)
                 } else {

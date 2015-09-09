@@ -49,8 +49,10 @@ extension OnTheMapHelper {
         let parsedData: AnyObject? = NSJSONSerialization.JSONObjectWithData(postProcessedResponse, options: .AllowFragments, error: &parseError)
         
         if let error = parseError {
+            println("Parse error")
             callback(result: nil, error: parseError)
         } else {
+            println("Sucessfully parsed JSON data")
             callback(result: parsedData, error: nil)
         }
     }

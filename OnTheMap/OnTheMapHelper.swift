@@ -46,7 +46,7 @@ class OnTheMapHelper: NSObject {
         return task
     }
     
-    func taskforPOST(method: String, serviceEndpoint: String, headers: NSMutableDictionary, jsonBody: [String: AnyObject], callback: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func taskforPOST(method: String, serviceEndpoint: String, headers: NSMutableDictionary, jsonBody: [String: AnyObject], postProcessor: ((data: AnyObject) -> NSData)?, callback: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         let urlString = serviceEndpoint + method
         
@@ -63,7 +63,7 @@ class OnTheMapHelper: NSObject {
             if let error = error {
                 callback(result: nil, error: error)
             } else {
-                self.parseResponseData(data, postProcessor: self.trimResponse, callback: callback)
+                self.parseResponseData(data, postProcessor: postProcessor, callback: callback)
             }
         }
         task.resume();

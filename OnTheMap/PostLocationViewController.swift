@@ -28,9 +28,6 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     @IBOutlet weak var mapItButton: UIButton!
     @IBOutlet weak var submitButton: UIButton!
     
-    var udacityProfile: UdacityProfile?
-    var studentLocation: StudentLocation?
-    
     var search: MKLocalSearch!
     var searchRequest: MKLocalSearchRequest!
     var searchResponse: MKLocalSearchResponse!
@@ -124,30 +121,32 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
             //post
             let serviceEndpoint = OnTheMapHelper.ParseApi.Endpoint + OnTheMapHelper.ParseApi.ClassApi
             
-            var headers : NSMutableDictionary = [:]
-            headers[OnTheMapHelper.ParseApi.Headers.AppIdKey] = OnTheMapHelper.ParseApi.Headers.AppIdValue
-            headers[OnTheMapHelper.ParseApi.Headers.RestApiKey] =
-             OnTheMapHelper.ParseApi.Headers.RestApiValue
+            var headers : NSMutableDictionary = [
+                OnTheMapHelper.ParseApi.Headers.AppIdKey: OnTheMapHelper.ParseApi.Headers.AppIdValue,
+                OnTheMapHelper.ParseApi.Headers.RestApiKey: OnTheMapHelper.ParseApi.Headers.RestApiValue
+            ]
             
             //var profile = self.getSessionProfile()
-            var profile = "1234"
+            // request profile then post
+            //var profile = self.getSessionProfile()
+            var profile = UdacityProfile(userId: "1234", firstName: "Ricardo", lastName: "Hernandez")
 
             var payload : [String: AnyObject] = [
-                "uniqueKey": profile,
-                "firstName": self.studentLocation!.firstName,
-                "lastName": self.studentLocation!.lastName,
+                "uniqueKey": profile.userId!,
+                "firstName": profile.firstName!,
+                "lastName": profile.lastName!,
                 "mapString": self.locationTextfield.text,
                 "mediaURL": self.tellsUsAboutTextfield.text,
                 "latitude": self.annotationPoint.coordinate.latitude,
                 "longitude": self.annotationPoint.coordinate.longitude
             ]
             
-            let task = OnTheMapHelper.getInstance().taskforPOST(OnTheMapHelper.ParseApi.Methods.studentlocation, serviceEndpoint: serviceEndpoint, headers: headers, jsonBody: payload) { result, error in
+            let task = OnTheMapHelper.getInstance().taskforPOST(OnTheMapHelper.ParseApi.Methods.studentlocation, serviceEndpoint: serviceEndpoint, headers: headers, jsonBody: payload, postProcessor: nil) { result, error in
                 if let error = error {
                     println("Error while POSTing new location: \(error)")
                     self.handlePOSTError("Location was not updated. Please try again.")
                 } else {
-                    if let createdAt: AnyObject = result.valueForKey("createdAT") {
+                    if let createdAt = result.valueForKey("createdAt") as? String {
                         // dismiss controller
                         println("Succesfully posted location")
                         dispatch_async(dispatch_get_main_queue(), {
