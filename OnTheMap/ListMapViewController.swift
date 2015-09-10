@@ -9,16 +9,20 @@
 import UIKit
 import MapKit
 
+
 class ListMapViewController: UIViewController, UINavigationControllerDelegate {
-    
-    var studentLocations: [StudentLocation] = [StudentLocation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.getStudentLocations(false, callback: self.displayStudentLocations)
     }
     
     override func viewWillAppear(animated: Bool) {
         setNavigationBarItems()
+    }
+    
+    func displayStudentLocations(locations: [StudentLocation]) {
+        // Function must be overriden
     }
     
     /**
@@ -31,22 +35,36 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
         
         // Refresh Button
         var refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refreshAction")
+        
         // Pin Button
         let iconView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        iconView.contentMode = UIViewContentMode.ScaleAspectFit
         let pinIcon = UIImage(named: "pin")
-        iconView.image = pinIcon
-
-        var pinButton2 = UIBarButtonItem(customView: iconView)
-        pinButton2.action = "pinAction"
-        pinButton2.target = self
-        self.navigationItem.rightBarButtonItems = [pinButton2, refreshButton]
+        
+        var pinButton = UIBarButtonItem(image: pinIcon, style: UIBarButtonItemStyle.Plain, target: self, action: "postAction")
+        
+        self.navigationItem.rightBarButtonItems = [pinButton, refreshButton]
         
         self.tabBarController?.tabBar.hidden = false
     }
     
-    func getStudentLocations(callback: () -> Void) {
-        if (self.studentLocations.count == 0) {
+    func refreshAction() {
+        self.getStudentLocations(true, callback: self.displayStudentLocations)
+    }
+    
+    func logoutAction() {
+    
+    }
+    
+    func postAction() {
+        
+        let postLocationController = self.storyboard?.instantiateViewControllerWithIdentifier("postLocationViewController") as! PostLocationViewController
+        let nav = UINavigationController(rootViewController: postLocationController)
+        self.showDetailViewController(nav, sender: self)
+    }
+    
+    func getStudentLocations(forceRefresh: Bool, callback: (locations: [StudentLocation]) -> Void) {
+        var locations = self.getStoredLocations()
+        if (locations.count == 0 || forceRefresh) {
             var endpoint = OnTheMapHelper.ParseApi.Endpoint + OnTheMapHelper.ParseApi.ClassApi
             
             var headers: NSMutableDictionary = [
@@ -60,6 +78,7 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
                 } else {
                     // get data
                     if let locations = result.valueForKey("results") as? [[String: AnyObject]] {
+                        var studentLocations: [StudentLocation] = [StudentLocation]()
                         for location in locations {
                             var studentLocation = StudentLocation(
                                 createdAt: location["createdAt"] as! String,
@@ -73,18 +92,31 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
                                 uniqueKey: location["uniqueKey"] as! String,
                                 updatedAt: location["updatedAt"]  as! String
                             )
-                            self.studentLocations.append(studentLocation)
+                            studentLocations.append(studentLocation)
                         }
                         println("Completed GET")
+                        self.setStoredLocations(studentLocations)
                         dispatch_async(dispatch_get_main_queue(), {
-                            callback()
+                            callback(locations: studentLocations)
                         })
                     } else {
                         self.handleError("Error while converting results to Dictionary")
                     }
                 }
             }
+        } else {
+            callback(locations: locations)
         }
+    }
+    
+    func setStoredLocations(locations: [StudentLocation]) {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.studentLocations = locations
+    }
+    
+    func getStoredLocations() -> [StudentLocation] {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        return appDelegate.studentLocations
     }
     
     func handleError(error: String) {

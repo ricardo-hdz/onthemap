@@ -9,20 +9,23 @@
 import UIKit
 import MapKit
 
-class MapViewController: ListMapViewController, UINavigationControllerDelegate, MKMapViewDelegate {
+class MapViewController: ListMapViewController, MKMapViewDelegate {
 
     @IBOutlet weak var map: MKMapView!
     
-    var locations : [MKPointAnnotation] = [MKPointAnnotation]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.getStudentLocations(self.displayStudentLocations)
     }
     
-    func displayStudentLocations() {
-        println("Trying to map \(self.studentLocations.count) locations")
-        for location in self.studentLocations {
+    override func displayStudentLocations(locations: [StudentLocation]) {
+        // reset annotations (if any)
+        var currentAnnotations = map.annotations
+        println("Removing \(currentAnnotations.count) annotations")
+        map.removeAnnotations(currentAnnotations)
+        
+        var mapLocations : [MKPointAnnotation] = [MKPointAnnotation]()
+        
+        for location in locations {
             let lat = CLLocationDegrees(location.latitude)
             let lon = CLLocationDegrees(location.longitude)
             let coord = CLLocationCoordinate2D(latitude: lat, longitude: lon)
@@ -32,37 +35,39 @@ class MapViewController: ListMapViewController, UINavigationControllerDelegate, 
             annotation.title = "\(location.firstName) \(location.lastName)"
             annotation.subtitle = location.mediaURL
             
-            locations.append(annotation)
+            mapLocations.append(annotation)
         }
         
-        map.addAnnotations(locations)
+        self.map.addAnnotations(mapLocations)
     }
     
-    func refreshAction() {
-        self.studentLocations = [StudentLocation]() // reset locations
-        self.getStudentLocations(self.displayStudentLocations)
-    }
-    
-    func mapView(mapView: MKMapView!, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    @objc func mapView(mapView: MKMapView!, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == annotationView.rightCalloutAccessoryView {
             let app = UIApplication.sharedApplication()
             app.openURL(NSURL(string: annotationView.annotation.subtitle!)!)
         }
     }
     
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    @objc func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        println("Yo!")
         let pinIdentifier = "pin"
     
-        var pinView = map.dequeueReusableAnnotationViewWithIdentifier(pinIdentifier) as? MKPinAnnotationView
+        var pinView = self.map.dequeueReusableAnnotationViewWithIdentifier(pinIdentifier) as? MKPinAnnotationView
         
-        if pinView == nil {
+        if pinView != nil {
+            println("Annotation title: \(annotation.title)")
+            println("Annotation subtitle: \(annotation.subtitle)")
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: pinIdentifier)
             pinView!.canShowCallout = true
             pinView!.rightCalloutAccessoryView = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton
-        } else {
+        }/* else {
             pinView!.annotation = annotation
-        }
+        }*/
         return pinView
+    }
+    
+    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+        println("Selected")
     }
     
 }

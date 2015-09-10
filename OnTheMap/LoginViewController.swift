@@ -117,8 +117,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     
     // Sets the profile in the appdelegate for future reference
     func setSessionProfile(profile: UdacityProfile) {
-        let object = UIApplication.sharedApplication().delegate
-        let appDelegate = object as! AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.udacityProfile = profile
     }
     

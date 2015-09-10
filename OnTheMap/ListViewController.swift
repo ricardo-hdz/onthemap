@@ -14,30 +14,24 @@ class ListViewController : ListMapViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.getStudentLocations() {
-            self.locationList.reloadData()
-        }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
     }
     
-    func refreshAction() {
-        self.studentLocations = [StudentLocation]() // reset locations
-        self.getStudentLocations() {
-            self.locationList.reloadData()
-        }
+    override func displayStudentLocations(locations: [StudentLocation]) {
+        self.locationList.reloadData()
     }
     
     @objc func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        println("Displaying \(self.studentLocations.count) in list view")
-        return self.studentLocations.count
+        var locations = self.getStoredLocations()
+        println("Displaying \(locations.count) in list view")
+        return locations.count
     }
     
     @objc func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        // implement
-        let location = self.studentLocations[indexPath.row]
+        let location = self.getStoredLocations()[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier("locationCell") as! ListMapViewCell
         cell.locationTitle.text = "\(location.firstName) \(location.lastName)"
         
@@ -45,7 +39,10 @@ class ListViewController : ListMapViewController, UITableViewDataSource, UITable
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // implement
+        let location = self.getStoredLocations()[indexPath.row]
+        let url = NSURL(string: location.mediaURL)
+        let app = UIApplication.sharedApplication()
+        app.openURL(url!)
     }
     
 }

@@ -22,7 +22,6 @@
 		E6702FFC1B96BE96009B0C0B /* OnTheMapConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6702FFB1B96BE96009B0C0B /* OnTheMapConstants.swift */; };
 		E6702FFE1B9749E6009B0C0B /* OnTheMapUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6702FFD1B9749E6009B0C0B /* OnTheMapUtilities.swift */; };
 		E67030001B97B569009B0C0B /* UdacityProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6702FFF1B97B569009B0C0B /* UdacityProfile.swift */; };
-		E67030021B9A4DBF009B0C0B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67030011B9A4DBF009B0C0B /* MapKit.framework */; };
 		E67030041B9A50D1009B0C0B /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67030031B9A50D1009B0C0B /* ListViewController.swift */; };
 		E67030061B9B3DBD009B0C0B /* MenuTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67030051B9B3DBD009B0C0B /* MenuTabController.swift */; };
 		E67030081B9B3EC3009B0C0B /* ListMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67030071B9B3EC3009B0C0B /* ListMapViewController.swift */; };
@@ -77,7 +76,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E67030021B9A4DBF009B0C0B /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +230,7 @@
 		E6702FBD1B96A2BA009B0C0B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Ricardo Hdz";
 				TargetAttributes = {
