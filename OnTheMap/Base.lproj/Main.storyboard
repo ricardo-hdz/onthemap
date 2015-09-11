@@ -296,6 +296,9 @@
                                         <exclude reference="ngp-6O-kpH"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <outlet property="delegate" destination="bqY-6w-jYo" id="T2J-XQ-0Gj"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -41,33 +41,29 @@ class MapViewController: ListMapViewController, MKMapViewDelegate {
         self.map.addAnnotations(mapLocations)
     }
     
-    @objc func mapView(mapView: MKMapView!, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    func mapView(mapView: MKMapView!, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        println("Calling annotation")
         if control == annotationView.rightCalloutAccessoryView {
             let app = UIApplication.sharedApplication()
             app.openURL(NSURL(string: annotationView.annotation.subtitle!)!)
         }
     }
     
-    @objc func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         println("Yo!")
         let pinIdentifier = "pin"
     
-        var pinView = self.map.dequeueReusableAnnotationViewWithIdentifier(pinIdentifier) as? MKPinAnnotationView
+        var pinView = self.map.dequeueReusableAnnotationViewWithIdentifier(pinIdentifier)
         
-        if pinView != nil {
+        if pinView == nil {
             println("Annotation title: \(annotation.title)")
             println("Annotation subtitle: \(annotation.subtitle)")
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: pinIdentifier)
             pinView!.canShowCallout = true
             pinView!.rightCalloutAccessoryView = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton
-        }/* else {
+        } else {
             pinView!.annotation = annotation
-        }*/
+        }
         return pinView
     }
-    
-    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
-        println("Selected")
-    }
-    
 }

@@ -61,7 +61,6 @@
 		E6702FFB1B96BE96009B0C0B /* OnTheMapConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnTheMapConstants.swift; sourceTree = "<group>"; };
 		E6702FFD1B9749E6009B0C0B /* OnTheMapUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnTheMapUtilities.swift; sourceTree = "<group>"; };
 		E6702FFF1B97B569009B0C0B /* UdacityProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityProfile.swift; sourceTree = "<group>"; };
-		E67030011B9A4DBF009B0C0B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E67030031B9A50D1009B0C0B /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		E67030051B9B3DBD009B0C0B /* MenuTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTabController.swift; sourceTree = "<group>"; };
 		E67030071B9B3EC3009B0C0B /* ListMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMapViewController.swift; sourceTree = "<group>"; };
@@ -92,7 +91,6 @@
 		E6702FBC1B96A2BA009B0C0B = {
 			isa = PBXGroup;
 			children = (
-				E67030011B9A4DBF009B0C0B /* MapKit.framework */,
 				E6702FC71B96A2BA009B0C0B /* OnTheMap */,
 				E6702FDD1B96A2BA009B0C0B /* OnTheMapTests */,
 				E6702FC61B96A2BA009B0C0B /* Products */,
