@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="S4n-Wg-VME">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i0t-H6-ucd">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -20,7 +20,7 @@
         <!--Login View Controller-->
         <scene sceneID="kUS-8P-h8n">
             <objects>
-                <viewController id="i0t-H6-ucd" customClass="LoginViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginController" id="i0t-H6-ucd" customClass="LoginViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="U6K-eO-umi"/>
                         <viewControllerLayoutGuide type="bottom" id="0is-YO-NTL"/>
@@ -60,18 +60,6 @@
                                 <connections>
                                     <action selector="loginAction:" destination="i0t-H6-ucd" eventType="touchUpInside" id="yYc-FD-sZB"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAo-3X-lbj">
-                                <rect key="frame" x="163" y="540" width="274" height="30"/>
-                                <color key="backgroundColor" red="0.22296463815789475" green="0.52229958796052633" blue="0.91861122532894501" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="6p6-rG-4h9"/>
-                                    <constraint firstAttribute="width" constant="274" id="yhj-3Q-3vW"/>
-                                </constraints>
-                                <state key="normal" title="Sign in with Facebook">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="udacity" translatesAutoresizingMaskIntoConstraints="NO" id="Lp8-SQ-wmK">
                                 <rect key="frame" x="225" y="65" width="150" height="150"/>
@@ -145,7 +133,6 @@
                             <constraint firstAttribute="centerX" secondItem="3GB-8v-bhP" secondAttribute="centerX" id="6NL-9i-p0Y"/>
                             <constraint firstAttribute="centerX" secondItem="hq1-gI-ro4" secondAttribute="centerX" id="9KB-Yh-8Np"/>
                             <constraint firstItem="hEk-lZ-8JR" firstAttribute="top" secondItem="cEX-ds-vVc" secondAttribute="bottom" constant="5" id="A7S-rh-oc4"/>
-                            <constraint firstAttribute="centerX" secondItem="hAo-3X-lbj" secondAttribute="centerX" id="Bja-FO-HFv"/>
                             <constraint firstItem="HsC-GD-t1p" firstAttribute="top" secondItem="dOK-pH-jnE" secondAttribute="bottom" constant="6" id="IRl-Un-aVG">
                                 <variation key="heightClass=compact" constant="5"/>
                             </constraint>
@@ -161,7 +148,6 @@
                             <constraint firstItem="3GB-8v-bhP" firstAttribute="top" secondItem="hq1-gI-ro4" secondAttribute="bottom" constant="26" id="PvI-A3-nAl">
                                 <variation key="heightClass=compact" constant="5"/>
                             </constraint>
-                            <constraint firstAttribute="centerX" secondItem="hAo-3X-lbj" secondAttribute="centerX" id="Yv9-02-hfB"/>
                             <constraint firstItem="cEX-ds-vVc" firstAttribute="leading" secondItem="Tz0-x8-Sai" secondAttribute="leading" id="aM2-ro-3ez"/>
                             <constraint firstAttribute="centerX" secondItem="hEk-lZ-8JR" secondAttribute="centerX" id="bgL-gn-Y29"/>
                             <constraint firstItem="hq1-gI-ro4" firstAttribute="top" secondItem="Lp8-SQ-wmK" secondAttribute="bottom" constant="24" id="ds5-dC-sD8">
@@ -177,12 +163,8 @@
                             <constraint firstItem="hHD-5L-4CY" firstAttribute="top" secondItem="dOK-pH-jnE" secondAttribute="bottom" constant="20" id="rP0-d8-DZF">
                                 <variation key="heightClass=compact" constant="10"/>
                             </constraint>
-                            <constraint firstItem="hAo-3X-lbj" firstAttribute="top" secondItem="hHD-5L-4CY" secondAttribute="bottom" constant="74" id="roy-us-Yda"/>
                             <constraint firstItem="hEk-lZ-8JR" firstAttribute="top" secondItem="3GB-8v-bhP" secondAttribute="bottom" constant="8" id="tYP-6T-Mj4"/>
                             <constraint firstAttribute="centerX" secondItem="HsC-GD-t1p" secondAttribute="centerX" id="xaU-MB-8ca"/>
-                            <constraint firstItem="0is-YO-NTL" firstAttribute="top" secondItem="hAo-3X-lbj" secondAttribute="bottom" constant="30" id="zTE-TF-MXP">
-                                <variation key="heightClass=compact" constant="5"/>
-                            </constraint>
                             <constraint firstItem="cEX-ds-vVc" firstAttribute="leading" secondItem="HsC-GD-t1p" secondAttribute="leading" id="ztE-yV-Ud0"/>
                         </constraints>
                         <variation key="default">
@@ -197,7 +179,6 @@
                                 <exclude reference="4tt-tx-sSD"/>
                                 <include reference="N5x-qj-4gu"/>
                                 <exclude reference="ouR-Vt-wfu"/>
-                                <exclude reference="Yv9-02-hfB"/>
                             </mask>
                         </variation>
                     </view>
@@ -205,7 +186,6 @@
                         <outlet property="emailNotification" destination="cEX-ds-vVc" id="HKk-JG-Y54"/>
                         <outlet property="emailTextfield" destination="3GB-8v-bhP" id="C4d-Jm-YmQ"/>
                         <outlet property="errorNotification" destination="HsC-GD-t1p" id="d5f-0X-SI1"/>
-                        <outlet property="facebookLogin" destination="hAo-3X-lbj" id="OPR-2M-J8f"/>
                         <outlet property="loginButton" destination="dOK-pH-jnE" id="jMA-n4-glQ"/>
                         <outlet property="passwordNotification" destination="Tz0-x8-Sai" id="6r0-HE-N0l"/>
                         <outlet property="passwordTextfield" destination="hEk-lZ-8JR" id="wu7-Qi-4Ya"/>

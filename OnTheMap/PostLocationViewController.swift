@@ -119,13 +119,14 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
             self.tellUsErrorLabel.hidden = false
         } else {
             //post
-            let serviceEndpoint = OnTheMapHelper.ParseApi.Endpoint + OnTheMapHelper.ParseApi.ClassApi
+            let serviceEndpoint = OnTheMapHelper.ParseApi.Endpoint + OnTheMapHelper.ParseApi.ClassApi + OnTheMapHelper.ParseApi.Methods.studentlocation
             
             var headers : NSMutableDictionary = [
                 OnTheMapHelper.ParseApi.Headers.AppIdKey: OnTheMapHelper.ParseApi.Headers.AppIdValue,
                 OnTheMapHelper.ParseApi.Headers.RestApiKey: OnTheMapHelper.ParseApi.Headers.RestApiValue
             ]
             
+            // @TODO
             //var profile = self.getSessionProfile()
             // request profile then post
             //var profile = self.getSessionProfile()
@@ -141,7 +142,7 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
                 "longitude": self.annotationPoint.coordinate.longitude
             ]
             
-            let task = OnTheMapHelper.getInstance().taskforPOST(OnTheMapHelper.ParseApi.Methods.studentlocation, serviceEndpoint: serviceEndpoint, headers: headers, jsonBody: payload, postProcessor: nil) { result, error in
+            let task = OnTheMapHelper.getInstance().serviceRequest("POST", serviceEndpoint: serviceEndpoint, headers: headers, jsonBody: payload, postProcessor: nil) { result, error in
                 if let error = error {
                     println("Error while POSTing new location: \(error)")
                     self.handlePOSTError("Location was not updated. Please try again.")

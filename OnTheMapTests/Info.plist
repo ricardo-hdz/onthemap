@@ -20,5 +20,18 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1606099349641567</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>1606099349641567</string>
+	<key>FacebookDisplayName</key>
+	<string>onthemap_udacity</string>
 </dict>
 </plist>

@@ -70,8 +70,11 @@ extension OnTheMapHelper {
         }
         
         struct Session {
-            static let id: String = "id"
-            static let expiration: String = "expiration"
+            static let account: String = "account"
+            static let accountKey: String = "key"
+            static let session: String = "session"
+            static let sessionId: String = "id"
+            static let sessionExpiration: String = "expiration"
         }
     }
 }

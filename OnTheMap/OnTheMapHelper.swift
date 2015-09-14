@@ -25,39 +25,23 @@ class OnTheMapHelper: NSObject {
         return Singleton.instance
     }
     
-    func taskForGet(method: String, serviceEndpoint: String, headers: NSMutableDictionary, params: [String: AnyObject]?, callback: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
-        let urlString = serviceEndpoint + method
+    func serviceRequest(type: String, serviceEndpoint: String, headers: NSMutableDictionary, jsonBody: [String: AnyObject]?, postProcessor: ((data: AnyObject) -> NSData)?, callback: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
-        let URL = NSURL(string: urlString)
-        
-        var request = NSMutableURLRequest(URL: URL!)
-        request.HTTPMethod = "GET"
-        request = self.setRequestHeaders(request, headers: headers)
-        
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if let error = error {
-                callback(result: nil, error: error)
-            } else {
-                self.parseResponseData(data, postProcessor: nil, callback: callback)
-            }
-        }
-        
-        task.resume()
-        return task
-    }
-    
-    func taskforPOST(method: String, serviceEndpoint: String, headers: NSMutableDictionary, jsonBody: [String: AnyObject], postProcessor: ((data: AnyObject) -> NSData)?, callback: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
-        
-        let urlString = serviceEndpoint + method
-        
-        let url = NSURL(string: urlString)
+        let url = NSURL(string: serviceEndpoint)
         
         // Request
         var request = NSMutableURLRequest(URL: url!)
-        request.HTTPMethod = "POST"
-        request = self.setRequestHeaders(request, headers: headers)
-
-        request.HTTPBody = self.parseJSONBody(jsonBody)
+        request.HTTPMethod = type
+        
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        for (headerField, headerValue) in headers {
+            request.addValue(headerValue as? String, forHTTPHeaderField: (headerField as? String)! )
+        }
+        
+        if (jsonBody != nil) {
+            request.HTTPBody = self.parseJSONBody(jsonBody!)
+        }
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if let error = error {
@@ -68,16 +52,5 @@ class OnTheMapHelper: NSObject {
         }
         task.resume();
         return task;
-    }
-    
-    func setRequestHeaders(request: NSMutableURLRequest, headers: NSMutableDictionary) -> NSMutableURLRequest {
-        headers["application/json"] = "Accept"
-        headers["application/json"] = "Content-Type"
-        
-        for (headerField, headerValue) in headers {
-            request.addValue(headerValue as? String, forHTTPHeaderField: (headerField as? String)! )
-        }
-        
-        return request
     }
 }

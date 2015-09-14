@@ -20,7 +20,6 @@ class MapViewController: ListMapViewController, MKMapViewDelegate {
     override func displayStudentLocations(locations: [StudentLocation]) {
         // reset annotations (if any)
         var currentAnnotations = map.annotations
-        println("Removing \(currentAnnotations.count) annotations")
         map.removeAnnotations(currentAnnotations)
         
         var mapLocations : [MKPointAnnotation] = [MKPointAnnotation]()
@@ -42,7 +41,6 @@ class MapViewController: ListMapViewController, MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView!, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        println("Calling annotation")
         if control == annotationView.rightCalloutAccessoryView {
             let app = UIApplication.sharedApplication()
             app.openURL(NSURL(string: annotationView.annotation.subtitle!)!)
@@ -50,14 +48,10 @@ class MapViewController: ListMapViewController, MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        println("Yo!")
         let pinIdentifier = "pin"
-    
         var pinView = self.map.dequeueReusableAnnotationViewWithIdentifier(pinIdentifier)
         
         if pinView == nil {
-            println("Annotation title: \(annotation.title)")
-            println("Annotation subtitle: \(annotation.subtitle)")
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: pinIdentifier)
             pinView!.canShowCallout = true
             pinView!.rightCalloutAccessoryView = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton

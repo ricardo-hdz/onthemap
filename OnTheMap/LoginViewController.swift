@@ -8,13 +8,11 @@
 import UIKit
 import Foundation
 
-class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate, FBSDKLoginButtonDelegate {
 
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var passwordTextfield: UITextField!
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var signupButton: UIButton!
-    @IBOutlet weak var facebookLogin: UIButton!
     @IBOutlet weak var emailNotification: UILabel!
     @IBOutlet weak var passwordNotification: UILabel!
     @IBOutlet weak var errorNotification: UILabel!
@@ -23,6 +21,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        displayFacebookButton()
+        
         emailTextfield.delegate = self
         passwordTextfield.delegate = self
         self.subscribeToKeyboardNotifications()
@@ -32,7 +33,42 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         tapRecognizer.numberOfTapsRequired = 1
         tapRecognizer.delegate = self
         self.view.addGestureRecognizer(tapRecognizer)
+        
+        // Log in with FB, if credentials are available
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            println("Login with valid facebook")
+            self.loginWithFacebook(FBSDKAccessToken.currentAccessToken().tokenString)
+        }
     }
+    
+    func displayFacebookButton() {
+        let loginView: FBSDKLoginButton = FBSDKLoginButton()
+        self.view.addSubview(loginView)
+        var x_coord = (self.view.frame.size.width - loginView.frame.size.width)
+        var y_coord = (self.view.frame.size.height - loginView.frame.size.height)
+        loginView.center = CGPoint(x: x_coord, y: y_coord)
+        loginView.readPermissions = [
+            "public_profile",
+            "email"
+        ]
+        loginView.delegate = self
+    }
+    
+    // Facebook Delegate
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+        if (error != nil) {
+            self.displayLoginError("Couldn't log in with Facebook at this time")
+        } else if (result.isCancelled) {
+            self.displayLoginError("Facebook Log In Cancelled")
+        } else {
+            if (result.token != nil) {
+                // login to udacity
+                self.loginWithFacebook(result.token.tokenString)
+            }
+        }
+    }
+    
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {}
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(true)
@@ -49,7 +85,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
 
     
     @IBAction func loginAction(sender: AnyObject) {
-        displayMapViewDirect()
         errorNotification.hidden = true
         if (self.validateFields()) {
             var email = emailTextfield.text
@@ -60,27 +95,43 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
                     OnTheMapHelper.API.Parameters.password: password
                 ]
             ]
-            
-            let serviceEndpoint = OnTheMapHelper.API.udacityEndpoint + OnTheMapHelper.API.udacityApi
-            
-            let headers: NSMutableDictionary = [:]
-            
-            var task = OnTheMapHelper.getInstance().taskforPOST(OnTheMapHelper.API.Methods.session, serviceEndpoint: serviceEndpoint, headers: headers, jsonBody: payload, postProcessor: OnTheMapHelper.getInstance().trimResponse)  { result, error in
-                if let error = error {
-                    self.displayLoginError(error.localizedDescription)
-                } else {
-                    let sessionId = result.valueForKey(OnTheMapHelper.Response.Session.id) as? String
-                    let userId = result.valueForKey(OnTheMapHelper.Response.Account.key) as? String
+            self.createSession(payload)
+        }
+    }
+    
+    func loginWithFacebook(token: String) {
+        println("Attempting to log in with FB: \(token)")
+        var credentials: [String : AnyObject] = [
+            "facebook_mobile": [
+                "access_token": token
+            ]
+        ]
+        self.createSession(credentials)
+    }
+    
+    // Requests a session with the given credentials
+    func createSession(credentials: [String: AnyObject]) {
+        let serviceEndpoint = OnTheMapHelper.API.udacityEndpoint + OnTheMapHelper.API.udacityApi + OnTheMapHelper.API.Methods.session
+        
+        let headers: NSMutableDictionary = [:]
+        
+        var task = OnTheMapHelper.getInstance().serviceRequest("POST", serviceEndpoint: serviceEndpoint, headers: headers, jsonBody: credentials, postProcessor: OnTheMapHelper.getInstance().trimResponse) { result, error in
+            if let error = error {
+                self.displayLoginError(error.localizedDescription)
+            } else {
+                let account = result.valueForKey(OnTheMapHelper.Response.Session.account) as? NSDictionary
+                let session = result.valueForKey(OnTheMapHelper.Response.Session.session) as? NSDictionary
+                if (account != nil && session != nil) {
+                    let userId = account?.valueForKey(OnTheMapHelper.Response.Session.accountKey) as? String
+                    let sessionId = session?.valueForKey(OnTheMapHelper.Response.Session.sessionId) as? String
                     
-                    if (sessionId != nil && userId != nil) {
-                        println("SessionId: \(sessionId)")
-                        println("UserId: \(userId)")
-                        
-                        self.getUdacityProfile(userId!)
-                    } else {
-                        if let svcError = result.valueForKey("error") as? String {
-                            self.displayLoginError(svcError)
-                        }
+                    println("SessionId: \(sessionId)")
+                    println("UserId: \(userId)")
+                    
+                    self.getUdacityProfile(userId!)
+                } else {
+                    if let svcError = result.valueForKey("error") as? String {
+                        self.displayLoginError(svcError)
                     }
                 }
             }
@@ -90,9 +141,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     
     func getUdacityProfile(userId: String) {
         var method = OnTheMapHelper.getInstance().replaceParamsInUrl(OnTheMapHelper.API.Methods.users, paramId: "userId", paramValue: userId)
-        var endpoint = OnTheMapHelper.API.udacityEndpoint + OnTheMapHelper.API.udacityApi
+        var endpoint = OnTheMapHelper.API.udacityEndpoint + OnTheMapHelper.API.udacityApi + method!
         
-        var task = OnTheMapHelper.getInstance().taskForGet(method!, serviceEndpoint: endpoint, headers: [:], params: nil) { result, error in
+        let headers: NSMutableDictionary = [:]
+
+        var task = OnTheMapHelper.getInstance().serviceRequest("GET", serviceEndpoint: endpoint, headers: headers, jsonBody: nil, postProcessor: OnTheMapHelper.getInstance().trimResponse) { result, error in
             if let error = error {
                 println("Error while requesting udacity profile")
             } else {
@@ -108,7 +161,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
                 }
             }
         }
-    
     }
     
     @IBAction func signupAction(sender: AnyObject) {
@@ -122,13 +174,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     }
     
     func displayMapView() {
-        dispatch_async(dispatch_get_main_queue(), {
-            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("MapViewController") as! UINavigationController
-            self.presentViewController(controller, animated: true, completion: nil)
-        })
-    }
-    
-    func displayMapViewDirect() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("MapTabBarController") as! UITabBarController
         self.presentViewController(controller, animated: true, completion: nil)
     }
@@ -224,5 +269,4 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
         self.keyboardHeight = keyboardSize.CGRectValue().height
     }
-    
 }

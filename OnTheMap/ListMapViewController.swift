@@ -29,9 +29,11 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
         Sets the navigation bar buttons
     **/
     func setNavigationBarItems() {
-        // Logout Button
-        var logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logoutAction")
-        self.navigationItem.leftBarButtonItem = logoutButton
+        // FB log out Button
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            var logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "fbLogoutAction")
+            self.navigationItem.leftBarButtonItem = logoutButton
+        }
         
         // Refresh Button
         var refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refreshAction")
@@ -51,12 +53,15 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
         self.getStudentLocations(true, callback: self.displayStudentLocations)
     }
     
-    func logoutAction() {
-    
+    func fbLogoutAction() {
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            var fbLoginManager = FBSDKLoginManager()
+            fbLoginManager.logOut()
+            self.navigationItem.leftBarButtonItem = nil
+        }
     }
     
     func postAction() {
-        
         let postLocationController = self.storyboard?.instantiateViewControllerWithIdentifier("postLocationViewController") as! PostLocationViewController
         let nav = UINavigationController(rootViewController: postLocationController)
         self.showDetailViewController(nav, sender: self)
@@ -65,14 +70,14 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
     func getStudentLocations(forceRefresh: Bool, callback: (locations: [StudentLocation]) -> Void) {
         var locations = self.getStoredLocations()
         if (locations.count == 0 || forceRefresh) {
-            var endpoint = OnTheMapHelper.ParseApi.Endpoint + OnTheMapHelper.ParseApi.ClassApi
+            var endpoint = OnTheMapHelper.ParseApi.Endpoint + OnTheMapHelper.ParseApi.ClassApi + OnTheMapHelper.ParseApi.Methods.studentlocation
             
             var headers: NSMutableDictionary = [
                 OnTheMapHelper.ParseApi.Headers.AppIdKey: OnTheMapHelper.ParseApi.Headers.AppIdValue,
                 OnTheMapHelper.ParseApi.Headers.RestApiKey: OnTheMapHelper.ParseApi.Headers.RestApiValue
             ]
             
-            let task = OnTheMapHelper.getInstance().taskForGet(OnTheMapHelper.ParseApi.Methods.studentlocation, serviceEndpoint: endpoint, headers: headers,  params: nil) { result, error in
+            let task = OnTheMapHelper.getInstance().serviceRequest("GET", serviceEndpoint: endpoint, headers: headers, jsonBody: nil, postProcessor: nil) { result, error in
                 if let error = error {
                     self.handleError(error.localizedDescription)
                 } else {
