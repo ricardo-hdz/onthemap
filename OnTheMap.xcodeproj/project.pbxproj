@@ -25,7 +25,6 @@
 		E6702FFE1B9749E6009B0C0B /* OnTheMapUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6702FFD1B9749E6009B0C0B /* OnTheMapUtilities.swift */; };
 		E67030001B97B569009B0C0B /* UdacityProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6702FFF1B97B569009B0C0B /* UdacityProfile.swift */; };
 		E67030041B9A50D1009B0C0B /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67030031B9A50D1009B0C0B /* ListViewController.swift */; };
-		E67030061B9B3DBD009B0C0B /* MenuTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67030051B9B3DBD009B0C0B /* MenuTabController.swift */; };
 		E67030081B9B3EC3009B0C0B /* ListMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67030071B9B3EC3009B0C0B /* ListMapViewController.swift */; };
 		E670300A1B9C9F56009B0C0B /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67030091B9C9F56009B0C0B /* StudentLocation.swift */; };
 		E670300C1B9CDF25009B0C0B /* ListMapViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E670300B1B9CDF25009B0C0B /* ListMapViewCell.swift */; };
@@ -66,7 +65,6 @@
 		E6702FFD1B9749E6009B0C0B /* OnTheMapUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnTheMapUtilities.swift; sourceTree = "<group>"; };
 		E6702FFF1B97B569009B0C0B /* UdacityProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityProfile.swift; sourceTree = "<group>"; };
 		E67030031B9A50D1009B0C0B /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
-		E67030051B9B3DBD009B0C0B /* MenuTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTabController.swift; sourceTree = "<group>"; };
 		E67030071B9B3EC3009B0C0B /* ListMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMapViewController.swift; sourceTree = "<group>"; };
 		E67030091B9C9F56009B0C0B /* StudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
 		E670300B1B9CDF25009B0C0B /* ListMapViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMapViewCell.swift; sourceTree = "<group>"; };
@@ -186,7 +184,6 @@
 				E6702FED1B96A4C8009B0C0B /* LoginViewController.swift */,
 				E6702FEF1B96A5A8009B0C0B /* MapViewController.swift */,
 				E67030031B9A50D1009B0C0B /* ListViewController.swift */,
-				E67030051B9B3DBD009B0C0B /* MenuTabController.swift */,
 				E67030071B9B3EC3009B0C0B /* ListMapViewController.swift */,
 				E670300D1B9D0AC1009B0C0B /* PostLocationViewController.swift */,
 			);
@@ -309,7 +306,6 @@
 				E670300A1B9C9F56009B0C0B /* StudentLocation.swift in Sources */,
 				E6702FEE1B96A4C8009B0C0B /* LoginViewController.swift in Sources */,
 				E6702FFC1B96BE96009B0C0B /* OnTheMapConstants.swift in Sources */,
-				E67030061B9B3DBD009B0C0B /* MenuTabController.swift in Sources */,
 				E670300E1B9D0AC1009B0C0B /* PostLocationViewController.swift in Sources */,
 				E67030101B9D1EFB009B0C0B /* CustomTextfield.swift in Sources */,
 				E6702FFA1B96BDF2009B0C0B /* OnTheMapHelper.swift in Sources */,

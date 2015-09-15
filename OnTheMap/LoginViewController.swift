@@ -16,6 +16,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     @IBOutlet weak var emailNotification: UILabel!
     @IBOutlet weak var passwordNotification: UILabel!
     @IBOutlet weak var errorNotification: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     
     var keyboardHeight: CGFloat?
     
@@ -39,6 +41,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
             println("Login with valid facebook")
             self.loginWithFacebook(FBSDKAccessToken.currentAccessToken().tokenString)
         }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(true)
+        self.unsubscribeFromKeyboardNotifications()
     }
     
     func displayFacebookButton() {
@@ -70,11 +77,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {}
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(true)
-        self.unsubscribeFromKeyboardNotifications()
-    }
-    
     func handleSingleTap(recognizer: UITapGestureRecognizer) {
         self.view.endEditing(true)
     }
@@ -87,6 +89,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     @IBAction func loginAction(sender: AnyObject) {
         errorNotification.hidden = true
         if (self.validateFields()) {
+            toggleActivityIndicator(true)
             var email = emailTextfield.text
             var password = passwordTextfield.text
             var payload: [String: AnyObject] = [
@@ -100,7 +103,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     }
     
     func loginWithFacebook(token: String) {
-        println("Attempting to log in with FB: \(token)")
+        self.activityIndicator.startAnimating()
         var credentials: [String : AnyObject] = [
             "facebook_mobile": [
                 "access_token": token
@@ -124,10 +127,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
                 if (account != nil && session != nil) {
                     let userId = account?.valueForKey(OnTheMapHelper.Response.Session.accountKey) as? String
                     let sessionId = session?.valueForKey(OnTheMapHelper.Response.Session.sessionId) as? String
-                    
-                    println("SessionId: \(sessionId)")
-                    println("UserId: \(userId)")
-                    
                     self.getUdacityProfile(userId!)
                 } else {
                     if let svcError = result.valueForKey("error") as? String {
@@ -147,7 +146,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
 
         var task = OnTheMapHelper.getInstance().serviceRequest("GET", serviceEndpoint: endpoint, headers: headers, jsonBody: nil, postProcessor: OnTheMapHelper.getInstance().trimResponse) { result, error in
             if let error = error {
-                println("Error while requesting udacity profile")
+                self.displayLoginError("Couldn't get Udacity profile")
             } else {
                 if let user = result.valueForKey("user") as? NSDictionary {
                     let firstName = user.valueForKey("first_name") as? String
@@ -175,19 +174,32 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     
     func displayMapView() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("MapTabBarController") as! UITabBarController
+        self.activityIndicator.stopAnimating()
         self.presentViewController(controller, animated: true, completion: nil)
     }
     
     func displayLoginError(error: String) {
         dispatch_async(dispatch_get_main_queue(), {
+            self.toggleActivityIndicator(false)
             self.errorNotification.text = error
             self.errorNotification.hidden = false
             println("Error while login: \(error)")
         })
     }
     
+    func toggleActivityIndicator(display: Bool) {
+        if (display) {
+            self.activityIndicator.startAnimating()
+            self.activityIndicator.hidden = false
+        } else {
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.hidden = true
+        }
+    }
+    
     /* Validates input fields */
     func validateFields() -> Bool {
+        emailTextfield.resignFirstResponder()
         var email = emailTextfield.text
         if (email.isEmpty || emailTextfield.text == "Email") {
             emailNotification.text = "Please enter your email"
@@ -199,6 +211,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
             emailNotification.hidden = false
             return false
         }
+        passwordTextfield.resignFirstResponder()
         var password = passwordTextfield.text
         if (password.isEmpty || passwordTextfield.text == "Password") {
             passwordNotification.hidden = false

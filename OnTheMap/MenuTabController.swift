@@ -23,7 +23,7 @@ class MenuTabController: UITabBarController {
     Sets the navigation bar buttons
     **/
     func setNavigationBarItems() {
-        var logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logoutAction")
+        /*var logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logoutAction")
         self.navigationItem.leftBarButtonItem = logoutButton
         
         var refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refreshAction")
@@ -31,6 +31,6 @@ class MenuTabController: UITabBarController {
         var pinButton = UIBarButtonItem(image: pinImage!, style: UIBarButtonItemStyle.Plain, target: self, action: "pinAction")
         self.navigationItem.rightBarButtonItems = [pinButton, refreshButton]
         
-        self.tabBarController?.tabBar.hidden = false
+        self.tabBarController?.tabBar.hidden = false*/
     }
 }

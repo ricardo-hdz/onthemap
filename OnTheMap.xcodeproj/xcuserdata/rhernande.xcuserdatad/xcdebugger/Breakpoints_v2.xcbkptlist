@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "17"
             endingLineNumber = "17"
-            landmarkName = "init(sessionId:userId:)"
+            landmarkName = "init(userId:firstName:lastName:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

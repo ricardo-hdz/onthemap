@@ -99,7 +99,6 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
                             )
                             studentLocations.append(studentLocation)
                         }
-                        println("Completed GET")
                         self.setStoredLocations(studentLocations)
                         dispatch_async(dispatch_get_main_queue(), {
                             callback(locations: studentLocations)

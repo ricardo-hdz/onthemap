@@ -106,7 +106,7 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     }
     
     @IBAction func mapIt(sender: AnyObject) {
-        if (!locationTextfield.text.isEmpty) {
+        if (!locationTextfield.text.isEmpty && locationTextfield.text != "Location") {
             // Clear map before new search
             clearMapAnnotations()
             searchLocation()
@@ -115,7 +115,7 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     
     @IBAction func postLocation(sender: AnyObject) {
         // Post data
-        if (self.tellsUsAboutTextfield.text.isEmpty || self.tellsUsAboutTextfield.text == "Tell us about you!") {
+        if (self.tellsUsAboutTextfield.text.isEmpty || self.tellsUsAboutTextfield.text == "Tell us about You!") {
             self.tellUsErrorLabel.hidden = false
         } else {
             //post
@@ -126,11 +126,7 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
                 OnTheMapHelper.ParseApi.Headers.RestApiKey: OnTheMapHelper.ParseApi.Headers.RestApiValue
             ]
             
-            // @TODO
-            //var profile = self.getSessionProfile()
-            // request profile then post
-            //var profile = self.getSessionProfile()
-            var profile = UdacityProfile(userId: "1234", firstName: "Ricardo", lastName: "Hernandez")
+            var profile = self.getSessionProfile()
 
             var payload : [String: AnyObject] = [
                 "uniqueKey": profile.userId!,
@@ -175,6 +171,8 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     
     func textFieldDidBeginEditing(textField: UITextField) {
         textField.text = ""
+        self.locationErrorLabel.hidden = true
+        self.tellUsErrorLabel.hidden = true
     }
     
     func searchLocation() {
@@ -250,10 +248,8 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     Repositions view frame when keyboard displays
     **/
     func keyboardWillShow(notification: NSNotification) {
-        //if self.bottomText.isFirstResponder() {
         setKeyboardHeight(notification)
         self.view.frame.origin.y -= self.keyboardHeight!
-        //}
     }
     
     /**
