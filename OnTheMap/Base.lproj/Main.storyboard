@@ -810,6 +810,9 @@
                             <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="9fA-NF-9jM">
                                 <rect key="frame" x="0.0" y="175" width="600" height="425"/>
                             </mapView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="saA-AX-CVn">
+                                <rect key="frame" x="290" y="253" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -819,6 +822,7 @@
                             <constraint firstItem="9fA-NF-9jM" firstAttribute="leading" secondItem="bR9-Op-8HH" secondAttribute="leading" id="4Bm-Hq-Qad"/>
                             <constraint firstItem="ons-Eu-S1F" firstAttribute="leading" secondItem="QpA-Ge-XQX" secondAttribute="leading" id="4vb-V0-Pcy"/>
                             <constraint firstItem="QpA-Ge-XQX" firstAttribute="trailing" secondItem="bR9-Op-8HH" secondAttribute="trailing" id="8mD-3l-iYu"/>
+                            <constraint firstItem="saA-AX-CVn" firstAttribute="top" secondItem="ons-Eu-S1F" secondAttribute="bottom" constant="78" id="AIt-ak-F6G"/>
                             <constraint firstItem="ons-Eu-S1F" firstAttribute="trailing" secondItem="QpA-Ge-XQX" secondAttribute="trailing" id="B1Y-pD-4OL"/>
                             <constraint firstItem="bR9-Op-8HH" firstAttribute="top" secondItem="QpA-Ge-XQX" secondAttribute="bottom" constant="8" symbolic="YES" id="BLs-vg-2p8"/>
                             <constraint firstItem="bR9-Op-8HH" firstAttribute="leading" secondItem="csp-wy-cb6" secondAttribute="leading" id="CI5-NK-kwQ"/>
@@ -836,6 +840,7 @@
                             <constraint firstItem="QpA-Ge-XQX" firstAttribute="leading" secondItem="bR9-Op-8HH" secondAttribute="leading" id="NoS-Zw-MrX"/>
                             <constraint firstItem="bR9-Op-8HH" firstAttribute="bottom" secondItem="iqm-EB-pl9" secondAttribute="top" id="PC3-Og-ZOC"/>
                             <constraint firstItem="iqm-EB-pl9" firstAttribute="top" secondItem="QpA-Ge-XQX" secondAttribute="bottom" constant="239" id="QQy-9r-fba"/>
+                            <constraint firstItem="saA-AX-CVn" firstAttribute="centerX" secondItem="ons-Eu-S1F" secondAttribute="centerX" id="Tub-hY-lcX"/>
                             <constraint firstItem="9fA-NF-9jM" firstAttribute="bottom" secondItem="iqm-EB-pl9" secondAttribute="top" id="Uk6-ds-gYG"/>
                             <constraint firstItem="iqm-EB-pl9" firstAttribute="top" secondItem="QpA-Ge-XQX" secondAttribute="bottom" constant="239" id="ZzL-gY-JKk"/>
                             <constraint firstItem="9fA-NF-9jM" firstAttribute="trailing" secondItem="bR9-Op-8HH" secondAttribute="trailing" id="aY6-kJ-8xc"/>
@@ -848,12 +853,14 @@
                             <constraint firstAttribute="trailing" secondItem="bR9-Op-8HH" secondAttribute="trailing" id="gS6-xV-q3g"/>
                             <constraint firstItem="QpA-Ge-XQX" firstAttribute="leading" secondItem="csp-wy-cb6" secondAttribute="leading" id="kvP-PQ-NsD"/>
                             <constraint firstItem="QpA-Ge-XQX" firstAttribute="trailing" secondItem="bR9-Op-8HH" secondAttribute="trailing" id="og5-R7-n7H"/>
+                            <constraint firstItem="saA-AX-CVn" firstAttribute="top" secondItem="ons-Eu-S1F" secondAttribute="bottom" constant="64" id="owL-RT-CAy"/>
                             <constraint firstItem="QpA-Ge-XQX" firstAttribute="top" secondItem="uvY-Sr-3VC" secondAttribute="bottom" id="rK2-aA-EAC"/>
                             <constraint firstAttribute="trailing" secondItem="QpA-Ge-XQX" secondAttribute="trailing" id="vjk-a3-OIx"/>
                             <constraint firstItem="QpA-Ge-XQX" firstAttribute="top" secondItem="csp-wy-cb6" secondAttribute="top" id="wB8-Cr-4ws"/>
                             <constraint firstItem="QpA-Ge-XQX" firstAttribute="leading" secondItem="bR9-Op-8HH" secondAttribute="leading" id="wQy-a3-bGK"/>
                             <constraint firstItem="bR9-Op-8HH" firstAttribute="top" secondItem="csp-wy-cb6" secondAttribute="top" constant="175" id="yL7-6f-CUw"/>
                             <constraint firstItem="bR9-Op-8HH" firstAttribute="bottom" secondItem="iqm-EB-pl9" secondAttribute="top" id="yaq-CQ-9Ek"/>
+                            <constraint firstItem="saA-AX-CVn" firstAttribute="centerX" secondItem="QpA-Ge-XQX" secondAttribute="centerX" id="ydz-Xf-Jph"/>
                             <constraint firstItem="ons-Eu-S1F" firstAttribute="top" secondItem="QpA-Ge-XQX" secondAttribute="top" id="yuf-rL-rYQ"/>
                         </constraints>
                         <variation key="default">
@@ -880,6 +887,8 @@
                                 <exclude reference="gS6-xV-q3g"/>
                                 <exclude reference="yL7-6f-CUw"/>
                                 <exclude reference="yaq-CQ-9Ek"/>
+                                <exclude reference="owL-RT-CAy"/>
+                                <exclude reference="ydz-Xf-Jph"/>
                                 <exclude reference="Dz3-4b-Vpb"/>
                                 <exclude reference="QQy-9r-fba"/>
                                 <exclude reference="ZzL-gY-JKk"/>
@@ -922,6 +931,10 @@
                                 <include reference="gS6-xV-q3g"/>
                                 <exclude reference="yL7-6f-CUw"/>
                                 <exclude reference="yaq-CQ-9Ek"/>
+                                <exclude reference="AIt-ak-F6G"/>
+                                <exclude reference="Tub-hY-lcX"/>
+                                <include reference="owL-RT-CAy"/>
+                                <include reference="ydz-Xf-Jph"/>
                                 <exclude reference="Dz3-4b-Vpb"/>
                                 <exclude reference="QQy-9r-fba"/>
                                 <exclude reference="ZzL-gY-JKk"/>
@@ -931,6 +944,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="CNZ-dC-Vo7"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="saA-AX-CVn" id="Vg3-fW-11n"/>
                         <outlet property="bottomViewStepOne" destination="bR9-Op-8HH" id="Vef-He-7E0"/>
                         <outlet property="locationErrorLabel" destination="0PQ-J9-hyn" id="TfQ-dd-Iil"/>
                         <outlet property="locationMap" destination="9fA-NF-9jM" id="Foe-uS-p8o"/>

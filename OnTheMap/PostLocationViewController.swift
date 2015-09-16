@@ -28,6 +28,8 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     @IBOutlet weak var mapItButton: UIButton!
     @IBOutlet weak var submitButton: UIButton!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var search: MKLocalSearch!
     var searchRequest: MKLocalSearchRequest!
     var searchResponse: MKLocalSearchResponse!
@@ -107,9 +109,12 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     
     @IBAction func mapIt(sender: AnyObject) {
         if (!locationTextfield.text.isEmpty && locationTextfield.text != "Location") {
+            activityIndicator.startAnimating()
             // Clear map before new search
             clearMapAnnotations()
             searchLocation()
+        } else {
+            handleLocationSearchError("Please enter your location")
         }
     }
     
@@ -203,6 +208,7 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
                     self.mapRegion = MKCoordinateRegion(center: locationCoord, span: self.mapSpan)
                     self.locationMap.setRegion(self.mapRegion, animated: true)
                     
+                    self.activityIndicator.stopAnimating()
                     // Display step 2
                     self.displayControlsMap()
                 }
@@ -211,8 +217,9 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     }
     
     func handleLocationSearchError(error: String) {
-        self.locationErrorLabel.text = error
-        self.locationErrorLabel.hidden = false
+        activityIndicator.stopAnimating()
+        locationErrorLabel.text = error
+        locationErrorLabel.hidden = false
     }
     
     func handlePOSTError(error: String) {

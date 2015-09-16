@@ -26,7 +26,6 @@ class ListViewController : ListMapViewController, UITableViewDataSource, UITable
     
     @objc func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var locations = self.getStoredLocations()
-        println("Displaying \(locations.count) in list view")
         return locations.count
     }
     
@@ -40,9 +39,12 @@ class ListViewController : ListMapViewController, UITableViewDataSource, UITable
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let location = self.getStoredLocations()[indexPath.row]
-        let url = NSURL(string: location.mediaURL)
-        let app = UIApplication.sharedApplication()
-        app.openURL(url!)
+        if (!location.mediaURL.isEmpty) {
+            let url = NSURL(string: location.mediaURL)
+            let app = UIApplication.sharedApplication()
+            app.openURL(url!)
+        }
+        
     }
     
 }

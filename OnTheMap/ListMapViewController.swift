@@ -39,12 +39,12 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
         var refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refreshAction")
         
         // Pin Button
-        let iconView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        let pinIcon = UIImage(named: "pin")
-        
+        let iconView = UIImageView(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
+        let pinIcon = UIImage(named: "pinIcon")
+
         var pinButton = UIBarButtonItem(image: pinIcon, style: UIBarButtonItemStyle.Plain, target: self, action: "postAction")
         
-        self.navigationItem.rightBarButtonItems = [pinButton, refreshButton]
+        self.navigationItem.rightBarButtonItems = [refreshButton, pinButton]
         
         self.tabBarController?.tabBar.hidden = false
     }
