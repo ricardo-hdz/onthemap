@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E625F48E1BA4A638001FB8B7 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E625F48C1BA4A638001FB8B7 /* FBSDKCoreKit.framework */; };
-		E625F48F1BA4A638001FB8B7 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E625F48D1BA4A638001FB8B7 /* FBSDKLoginKit.framework */; };
 		E6702FCB1B96A2BA009B0C0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6702FCA1B96A2BA009B0C0B /* AppDelegate.swift */; };
 		E6702FD01B96A2BA009B0C0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6702FCE1B96A2BA009B0C0B /* Main.storyboard */; };
 		E6702FD21B96A2BA009B0C0B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6702FD11B96A2BA009B0C0B /* Images.xcassets */; };
@@ -30,6 +28,8 @@
 		E670300C1B9CDF25009B0C0B /* ListMapViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E670300B1B9CDF25009B0C0B /* ListMapViewCell.swift */; };
 		E670300E1B9D0AC1009B0C0B /* PostLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E670300D1B9D0AC1009B0C0B /* PostLocationViewController.swift */; };
 		E67030101B9D1EFB009B0C0B /* CustomTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = E670300F1B9D1EFB009B0C0B /* CustomTextfield.swift */; };
+		E68A44BD1BA9F10C00FA75D0 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E68A44BB1BA9F10C00FA75D0 /* FBSDKCoreKit.framework */; };
+		E68A44BE1BA9F10C00FA75D0 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E68A44BC1BA9F10C00FA75D0 /* FBSDKLoginKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,8 +43,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E625F48C1BA4A638001FB8B7 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../Downloads/FacebookSDKs-iOS-20150813/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
-		E625F48D1BA4A638001FB8B7 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../Downloads/FacebookSDKs-iOS-20150813/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		E6702FC51B96A2BA009B0C0B /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6702FC91B96A2BA009B0C0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6702FCA1B96A2BA009B0C0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +68,8 @@
 		E670300B1B9CDF25009B0C0B /* ListMapViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMapViewCell.swift; sourceTree = "<group>"; };
 		E670300D1B9D0AC1009B0C0B /* PostLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostLocationViewController.swift; sourceTree = "<group>"; };
 		E670300F1B9D1EFB009B0C0B /* CustomTextfield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextfield.swift; sourceTree = "<group>"; };
+		E68A44BB1BA9F10C00FA75D0 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		E68A44BC1BA9F10C00FA75D0 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		E6F9B1C01BA4948E004645AA /* Facebook-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Facebook-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,8 +78,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E625F48F1BA4A638001FB8B7 /* FBSDKLoginKit.framework in Frameworks */,
-				E625F48E1BA4A638001FB8B7 /* FBSDKCoreKit.framework in Frameworks */,
+				E68A44BE1BA9F10C00FA75D0 /* FBSDKLoginKit.framework in Frameworks */,
+				E68A44BD1BA9F10C00FA75D0 /* FBSDKCoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,8 +193,8 @@
 		E6F9B1D11BA4A3E6004645AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E625F48C1BA4A638001FB8B7 /* FBSDKCoreKit.framework */,
-				E625F48D1BA4A638001FB8B7 /* FBSDKLoginKit.framework */,
+				E68A44BB1BA9F10C00FA75D0 /* FBSDKCoreKit.framework */,
+				E68A44BC1BA9F10C00FA75D0 /* FBSDKLoginKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -448,6 +448,7 @@
 					"/Users/rhernande/Documents/FacebookSDKs-iOS-20150910",
 					"/Users/rhernande/Documents/FacebookSDKs-iOS-20150813",
 					"/Users/rhernande/Downloads/FacebookSDKs-iOS-20150813",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = OnTheMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -465,6 +466,7 @@
 					"/Users/rhernande/Documents/FacebookSDKs-iOS-20150910",
 					"/Users/rhernande/Documents/FacebookSDKs-iOS-20150813",
 					"/Users/rhernande/Downloads/FacebookSDKs-iOS-20150813",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = OnTheMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
