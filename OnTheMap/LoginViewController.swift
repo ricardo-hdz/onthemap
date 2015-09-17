@@ -13,9 +13,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var passwordTextfield: UITextField!
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var emailNotification: UILabel!
-    @IBOutlet weak var passwordNotification: UILabel!
-    @IBOutlet weak var errorNotification: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
@@ -64,9 +61,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     // Facebook Delegate
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         if (error != nil) {
-            self.displayLoginError("Couldn't log in with Facebook at this time")
+            handleError("On the Map - Login", error: "Couldn't log in with Facebook at this time")
         } else if (result.isCancelled) {
-            self.displayLoginError("Facebook Log In Cancelled")
+            handleError("On the Map - Login", error: "Facebook Log In Cancelled")
         } else {
             if (result.token != nil) {
                 // login to udacity
@@ -84,10 +81,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
         return self.emailTextfield.isFirstResponder() || self.passwordTextfield.isFirstResponder()
     }
-
     
     @IBAction func loginAction(sender: AnyObject) {
-        errorNotification.hidden = true
         if (self.validateFields()) {
             toggleActivityIndicator(true)
             var email = emailTextfield.text
@@ -120,7 +115,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         
         var task = OnTheMapHelper.getInstance().serviceRequest("POST", serviceEndpoint: serviceEndpoint, headers: headers, jsonBody: credentials, postProcessor: OnTheMapHelper.getInstance().trimResponse) { result, error in
             if let error = error {
-                self.displayLoginError(error.localizedDescription)
+                self.handleError("On the Map - Login", error: error.localizedDescription)
             } else {
                 let account = result.valueForKey(OnTheMapHelper.Response.Session.account) as? NSDictionary
                 let session = result.valueForKey(OnTheMapHelper.Response.Session.session) as? NSDictionary
@@ -130,7 +125,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
                     self.getUdacityProfile(userId!)
                 } else {
                     if let svcError = result.valueForKey("error") as? String {
-                        self.displayLoginError(svcError)
+                        self.handleError("On the Map - Login", error: svcError)
                     }
                 }
             }
@@ -146,7 +141,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
 
         var task = OnTheMapHelper.getInstance().serviceRequest("GET", serviceEndpoint: endpoint, headers: headers, jsonBody: nil, postProcessor: OnTheMapHelper.getInstance().trimResponse) { result, error in
             if let error = error {
-                self.displayLoginError("Couldn't get Udacity profile")
+                self.handleError("On the Map - Login", error: "Error while retrieving Udacity profile")
             } else {
                 if let user = result.valueForKey("user") as? NSDictionary {
                     let firstName = user.valueForKey("first_name") as? String
@@ -178,12 +173,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         self.presentViewController(controller, animated: true, completion: nil)
     }
     
-    func displayLoginError(error: String) {
+    func handleError(alertTitle: String, error: String) {
+        let alertController = UIAlertController(title: alertTitle, message: error, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
         dispatch_async(dispatch_get_main_queue(), {
-            self.toggleActivityIndicator(false)
-            self.errorNotification.text = error
-            self.errorNotification.hidden = false
-            println("Error while login: \(error)")
+            self.presentViewController(alertController, animated: true, completion: nil)
         })
     }
     
@@ -202,33 +196,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         emailTextfield.resignFirstResponder()
         var email = emailTextfield.text
         if (email.isEmpty || emailTextfield.text == "Email") {
-            emailNotification.text = "Please enter your email"
-            emailNotification.hidden = false
+            self.handleError("On the Map - Login", error: "Please enter your email")
             return false
         }
         if (!isValidEmail(email)) {
-            emailNotification.text = "Please enter a valid email address"
-            emailNotification.hidden = false
+            self.handleError("On the Map - Login", error: "Please enter a valid email address")
             return false
         }
         passwordTextfield.resignFirstResponder()
         var password = passwordTextfield.text
         if (password.isEmpty || passwordTextfield.text == "Password") {
-            passwordNotification.hidden = false
+            self.handleError("On the Map - Login", error: "Please enter yor password")
             return false
         }
-        emailNotification.hidden = true
-        passwordNotification.hidden = true
         return true
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
         textField.text = ""
-        if (textField == self.emailTextfield) {
-            emailNotification.hidden = true
-        } else if (textField == self.passwordTextfield) {
-            passwordNotification.hidden = true
-        }
     }
     
     /* Validates email address */

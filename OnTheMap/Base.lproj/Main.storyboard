@@ -93,28 +93,6 @@
                                     <action selector="signupAction:" destination="i0t-H6-ucd" eventType="touchUpInside" id="u1z-wv-bZ6"/>
                                 </connections>
                             </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter your email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEX-ds-vVc">
-                                <rect key="frame" x="163" y="315" width="274" height="15"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="15" id="XI6-EN-aNK"/>
-                                    <constraint firstAttribute="width" constant="274" id="onB-Zb-huH"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please enter your password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tz0-x8-Sai">
-                                <rect key="frame" x="163" y="364" width="155" height="15"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HsC-GD-t1p">
-                                <rect key="frame" x="163" y="421" width="274" height="15"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3GB-8v-bhP" customClass="CustomTextfield" customModule="OnTheMap" customModuleProvider="target">
                                 <rect key="frame" x="163" y="285" width="274" height="30"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
@@ -135,18 +113,10 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.54728618421052633" blue="0.12281558388157894" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="dOK-pH-jnE" firstAttribute="top" secondItem="Tz0-x8-Sai" secondAttribute="bottom" constant="6" id="2Pe-Az-2mY"/>
                             <constraint firstItem="Lp8-SQ-wmK" firstAttribute="top" secondItem="U6K-eO-umi" secondAttribute="bottom" constant="45" id="4tt-tx-sSD"/>
                             <constraint firstAttribute="centerX" secondItem="3GB-8v-bhP" secondAttribute="centerX" id="6NL-9i-p0Y"/>
                             <constraint firstAttribute="centerX" secondItem="hq1-gI-ro4" secondAttribute="centerX" id="9KB-Yh-8Np"/>
-                            <constraint firstItem="hEk-lZ-8JR" firstAttribute="top" secondItem="cEX-ds-vVc" secondAttribute="bottom" constant="5" id="A7S-rh-oc4"/>
                             <constraint firstItem="Rha-2c-JJk" firstAttribute="centerX" secondItem="hHD-5L-4CY" secondAttribute="centerX" id="CXI-fp-WmO"/>
-                            <constraint firstItem="hHD-5L-4CY" firstAttribute="leading" secondItem="HsC-GD-t1p" secondAttribute="leading" id="D5b-YS-d1t"/>
-                            <constraint firstItem="HsC-GD-t1p" firstAttribute="top" secondItem="dOK-pH-jnE" secondAttribute="bottom" constant="6" id="IRl-Un-aVG">
-                                <variation key="heightClass=compact" constant="5"/>
-                            </constraint>
-                            <constraint firstItem="HsC-GD-t1p" firstAttribute="top" secondItem="dOK-pH-jnE" secondAttribute="bottom" id="JwE-n3-Pdh"/>
-                            <constraint firstItem="cEX-ds-vVc" firstAttribute="leading" secondItem="3GB-8v-bhP" secondAttribute="leading" id="Kyp-eI-fcN"/>
                             <constraint firstItem="dOK-pH-jnE" firstAttribute="top" secondItem="hEk-lZ-8JR" secondAttribute="bottom" constant="20" id="Lgx-PF-g52">
                                 <variation key="heightClass=compact" constant="20"/>
                             </constraint>
@@ -154,16 +124,12 @@
                             <constraint firstItem="Lp8-SQ-wmK" firstAttribute="top" secondItem="0VB-RG-Qf0" secondAttribute="topMargin" constant="20" id="N5x-qj-4gu">
                                 <variation key="heightClass=compact" constant="0.0"/>
                             </constraint>
-                            <constraint firstItem="Tz0-x8-Sai" firstAttribute="top" secondItem="cEX-ds-vVc" secondAttribute="bottom" constant="35" id="NR0-Oa-Hwt"/>
-                            <constraint firstItem="cEX-ds-vVc" firstAttribute="trailing" secondItem="HsC-GD-t1p" secondAttribute="trailing" id="OIJ-Wm-gBt"/>
                             <constraint firstItem="0is-YO-NTL" firstAttribute="top" secondItem="Rha-2c-JJk" secondAttribute="bottom" constant="105" id="Pqf-0p-qyS"/>
                             <constraint firstItem="3GB-8v-bhP" firstAttribute="top" secondItem="hq1-gI-ro4" secondAttribute="bottom" constant="26" id="PvI-A3-nAl">
                                 <variation key="heightClass=compact" constant="5"/>
                             </constraint>
                             <constraint firstItem="hHD-5L-4CY" firstAttribute="leading" secondItem="dOK-pH-jnE" secondAttribute="leading" id="SUN-LR-IFc"/>
-                            <constraint firstItem="hHD-5L-4CY" firstAttribute="trailing" secondItem="HsC-GD-t1p" secondAttribute="trailing" id="TRJ-OC-d2r"/>
                             <constraint firstItem="Rha-2c-JJk" firstAttribute="top" secondItem="hHD-5L-4CY" secondAttribute="bottom" constant="8" symbolic="YES" id="W8G-c8-l3I"/>
-                            <constraint firstItem="cEX-ds-vVc" firstAttribute="leading" secondItem="Tz0-x8-Sai" secondAttribute="leading" id="aM2-ro-3ez"/>
                             <constraint firstAttribute="centerX" secondItem="hEk-lZ-8JR" secondAttribute="centerX" id="bgL-gn-Y29"/>
                             <constraint firstItem="hHD-5L-4CY" firstAttribute="top" secondItem="dOK-pH-jnE" secondAttribute="bottom" constant="5" id="cIL-83-N83"/>
                             <constraint firstItem="hq1-gI-ro4" firstAttribute="top" secondItem="Lp8-SQ-wmK" secondAttribute="bottom" constant="24" id="ds5-dC-sD8">
@@ -172,7 +138,6 @@
                             <constraint firstAttribute="centerX" secondItem="dOK-pH-jnE" secondAttribute="centerX" id="dyU-lq-eSS"/>
                             <constraint firstItem="hHD-5L-4CY" firstAttribute="trailing" secondItem="dOK-pH-jnE" secondAttribute="trailing" id="emt-QS-thc"/>
                             <constraint firstAttribute="centerX" secondItem="Lp8-SQ-wmK" secondAttribute="centerX" id="fSc-EU-ld4"/>
-                            <constraint firstItem="Rha-2c-JJk" firstAttribute="top" secondItem="HsC-GD-t1p" secondAttribute="bottom" constant="15" id="g4i-6K-79g"/>
                             <constraint firstAttribute="centerX" secondItem="hHD-5L-4CY" secondAttribute="centerX" id="kOZ-f6-dNv"/>
                             <constraint firstItem="hEk-lZ-8JR" firstAttribute="top" secondItem="3GB-8v-bhP" secondAttribute="bottom" constant="20" id="ns4-6T-Toh">
                                 <variation key="heightClass=compact" constant="20"/>
@@ -183,22 +148,16 @@
                                 <variation key="heightClass=compact" constant="10"/>
                             </constraint>
                             <constraint firstItem="hEk-lZ-8JR" firstAttribute="top" secondItem="3GB-8v-bhP" secondAttribute="bottom" constant="8" id="tYP-6T-Mj4"/>
-                            <constraint firstAttribute="centerX" secondItem="HsC-GD-t1p" secondAttribute="centerX" id="xaU-MB-8ca"/>
-                            <constraint firstItem="cEX-ds-vVc" firstAttribute="leading" secondItem="HsC-GD-t1p" secondAttribute="leading" id="ztE-yV-Ud0"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="N5x-qj-4gu"/>
                                 <exclude reference="ouR-Vt-wfu"/>
                                 <exclude reference="tYP-6T-Mj4"/>
-                                <exclude reference="JwE-n3-Pdh"/>
-                                <exclude reference="D5b-YS-d1t"/>
                                 <exclude reference="SUN-LR-IFc"/>
-                                <exclude reference="TRJ-OC-d2r"/>
                                 <exclude reference="cIL-83-N83"/>
                                 <exclude reference="emt-QS-thc"/>
                                 <exclude reference="McV-0C-H3W"/>
-                                <exclude reference="g4i-6K-79g"/>
                                 <exclude reference="Pqf-0p-qyS"/>
                             </mask>
                         </variation>
@@ -207,31 +166,20 @@
                                 <exclude reference="4tt-tx-sSD"/>
                                 <include reference="N5x-qj-4gu"/>
                                 <exclude reference="ouR-Vt-wfu"/>
-                                <exclude reference="OIJ-Wm-gBt"/>
-                                <exclude reference="ztE-yV-Ud0"/>
-                                <exclude reference="IRl-Un-aVG"/>
-                                <include reference="JwE-n3-Pdh"/>
-                                <exclude reference="xaU-MB-8ca"/>
-                                <include reference="D5b-YS-d1t"/>
                                 <include reference="SUN-LR-IFc"/>
-                                <include reference="TRJ-OC-d2r"/>
                                 <include reference="cIL-83-N83"/>
                                 <include reference="emt-QS-thc"/>
                                 <exclude reference="kOZ-f6-dNv"/>
                                 <exclude reference="rP0-d8-DZF"/>
                                 <include reference="McV-0C-H3W"/>
-                                <include reference="g4i-6K-79g"/>
                                 <exclude reference="Pqf-0p-qyS"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="Rha-2c-JJk" id="MlQ-tO-jxT"/>
-                        <outlet property="emailNotification" destination="cEX-ds-vVc" id="HKk-JG-Y54"/>
                         <outlet property="emailTextfield" destination="3GB-8v-bhP" id="C4d-Jm-YmQ"/>
-                        <outlet property="errorNotification" destination="HsC-GD-t1p" id="d5f-0X-SI1"/>
                         <outlet property="loginButton" destination="dOK-pH-jnE" id="jMA-n4-glQ"/>
-                        <outlet property="passwordNotification" destination="Tz0-x8-Sai" id="6r0-HE-N0l"/>
                         <outlet property="passwordTextfield" destination="hEk-lZ-8JR" id="wu7-Qi-4Ya"/>
                     </connections>
                 </viewController>
