@@ -9,7 +9,7 @@
 import MapKit
 import UIKit
 
-class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFieldDelegate, UINavigationControllerDelegate {
+class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
 
     
     @IBOutlet weak var locationMap: MKMapView!
@@ -47,6 +47,7 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
         self.locationTextfield.delegate = self
         self.tellsUsAboutTextfield.delegate = self
         self.subscribeToKeyboardNotifications()
+        
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -236,6 +237,23 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
         }
     }
     
+    // Gesture recognizer - Delegate methods
+    func setTapRecognizer() {
+        var tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+        tapRecognizer.numberOfTapsRequired = 1
+        tapRecognizer.delegate = self
+        self.view.addGestureRecognizer(tapRecognizer)
+    }
+    
+    func handleSingleTap(recognizer: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        return self.locationTextfield.isFirstResponder() || self.tellsUsAboutTextfield.isFirstResponder()
+    }
+
+    
     /**
     Subscriber to keyboard notifications
     **/
@@ -249,6 +267,11 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     func unsubscribeFromKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return false
     }
     
     /**

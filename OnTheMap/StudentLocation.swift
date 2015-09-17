@@ -6,9 +6,7 @@
 //  Copyright (c) 2015 Ricardo Hdz. All rights reserved.
 //
 
-import Foundation
-
-class StudentLocation: NSObject {
+struct StudentLocation {
     var createdAt: String
     var firstName: String
     var lastName: String
@@ -20,17 +18,17 @@ class StudentLocation: NSObject {
     var uniqueKey: String
     var updatedAt: String
     
-    init(createdAt: String, firstName: String, lastName: String, latitude: Double, longitude: Double, mapString: String, mediaURL: String, objectId: String, uniqueKey: String, updatedAt: String) {
-        self.createdAt = createdAt
-        self.firstName = firstName
-        self.lastName = lastName
-        self.latitude = latitude
-        self.longitude = longitude
-        self.mapString = mapString
-        self.mediaURL = mediaURL
-        self.objectId = objectId
-        self.uniqueKey = uniqueKey
-        self.updatedAt = updatedAt
+    init(data: NSDictionary) {
+        self.createdAt = data.valueForKey("createdAt") as! String
+        self.createdAt = data.valueForKey("createdAt") as! String
+        self.firstName = data.valueForKey("firstName") as! String
+        self.lastName = data.valueForKey("lastName") as! String
+        self.latitude = data.valueForKey("latitude") as! Double
+        self.longitude = data.valueForKey("longitude") as! Double
+        self.mapString = data.valueForKey("mapString") as! String
+        self.mediaURL = data.valueForKey("mediaURL") as! String
+        self.objectId = data.valueForKey("objectId") as! String
+        self.uniqueKey = data.valueForKey("uniqueKey") as! String
+        self.updatedAt = data.valueForKey("updatedAt") as! String
     }
-
 }

@@ -85,18 +85,7 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
                     if let locations = result.valueForKey("results") as? [[String: AnyObject]] {
                         var studentLocations: [StudentLocation] = [StudentLocation]()
                         for location in locations {
-                            var studentLocation = StudentLocation(
-                                createdAt: location["createdAt"] as! String,
-                                firstName: location["firstName"] as! String,
-                                lastName: location["lastName"] as! String,
-                                latitude: location["latitude"] as! Double,
-                                longitude: location["longitude"] as! Double,
-                                mapString: location["mapString"] as! String,
-                                mediaURL: location["mediaURL"] as! String,
-                                objectId: location["objectId"] as! String,
-                                uniqueKey: location["uniqueKey"] as! String,
-                                updatedAt: location["updatedAt"]  as! String
-                            )
+                            var studentLocation = StudentLocation(data: location)
                             studentLocations.append(studentLocation)
                         }
                         self.setStoredLocations(studentLocations)
@@ -114,13 +103,15 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     func setStoredLocations(locations: [StudentLocation]) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        appDelegate.studentLocations = locations
+        DataStore.getInstance().studentLocations = locations
+        /*let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.studentLocations = locations*/
     }
     
     func getStoredLocations() -> [StudentLocation] {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        return appDelegate.studentLocations
+        return DataStore.getInstance().studentLocations
+        /*let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        return appDelegate.studentLocations*/
     }
     
     func handleError(error: String) {
