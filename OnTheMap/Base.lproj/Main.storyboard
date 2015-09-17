@@ -511,9 +511,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="9fA-NF-9jM">
-                                <rect key="frame" x="0.0" y="88" width="600" height="425"/>
-                            </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QpA-Ge-XQX">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="175"/>
                                 <subviews>
@@ -811,6 +808,9 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="9fA-NF-9jM">
+                                <rect key="frame" x="0.0" y="175" width="600" height="425"/>
+                            </mapView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="saA-AX-CVn">
                                 <rect key="frame" x="290" y="253" width="20" height="20"/>
                             </activityIndicatorView>
@@ -821,6 +821,7 @@
                             <constraint firstItem="bR9-Op-8HH" firstAttribute="top" secondItem="csp-wy-cb6" secondAttribute="top" constant="188" id="11O-jZ-I6A"/>
                             <constraint firstItem="ons-Eu-S1F" firstAttribute="top" secondItem="uvY-Sr-3VC" secondAttribute="bottom" id="1EW-Dy-JjQ"/>
                             <constraint firstItem="ons-Eu-S1F" firstAttribute="leading" secondItem="QpA-Ge-XQX" secondAttribute="leading" id="4vb-V0-Pcy"/>
+                            <constraint firstItem="9fA-NF-9jM" firstAttribute="leading" secondItem="bR9-Op-8HH" secondAttribute="leading" id="5uv-qL-Djg"/>
                             <constraint firstItem="QpA-Ge-XQX" firstAttribute="trailing" secondItem="bR9-Op-8HH" secondAttribute="trailing" id="8mD-3l-iYu"/>
                             <constraint firstItem="saA-AX-CVn" firstAttribute="top" secondItem="ons-Eu-S1F" secondAttribute="bottom" constant="78" id="AIt-ak-F6G"/>
                             <constraint firstItem="ons-Eu-S1F" firstAttribute="trailing" secondItem="QpA-Ge-XQX" secondAttribute="trailing" id="B1Y-pD-4OL"/>
@@ -848,10 +849,13 @@
                             <constraint firstItem="bR9-Op-8HH" firstAttribute="top" secondItem="uvY-Sr-3VC" secondAttribute="bottom" constant="111" id="fno-VC-Gtq"/>
                             <constraint firstItem="bR9-Op-8HH" firstAttribute="bottom" secondItem="iqm-EB-pl9" secondAttribute="top" id="g3r-PS-g17"/>
                             <constraint firstAttribute="trailing" secondItem="bR9-Op-8HH" secondAttribute="trailing" id="gS6-xV-q3g"/>
+                            <constraint firstItem="9fA-NF-9jM" firstAttribute="bottom" secondItem="iqm-EB-pl9" secondAttribute="top" id="jat-KP-1Ij"/>
                             <constraint firstItem="QpA-Ge-XQX" firstAttribute="leading" secondItem="csp-wy-cb6" secondAttribute="leading" id="kvP-PQ-NsD"/>
+                            <constraint firstItem="9fA-NF-9jM" firstAttribute="trailing" secondItem="bR9-Op-8HH" secondAttribute="trailing" id="lFn-yn-Uod"/>
                             <constraint firstItem="QpA-Ge-XQX" firstAttribute="trailing" secondItem="bR9-Op-8HH" secondAttribute="trailing" id="og5-R7-n7H"/>
                             <constraint firstItem="saA-AX-CVn" firstAttribute="top" secondItem="ons-Eu-S1F" secondAttribute="bottom" constant="64" id="owL-RT-CAy"/>
                             <constraint firstItem="QpA-Ge-XQX" firstAttribute="top" secondItem="uvY-Sr-3VC" secondAttribute="bottom" id="rK2-aA-EAC"/>
+                            <constraint firstItem="9fA-NF-9jM" firstAttribute="top" secondItem="bR9-Op-8HH" secondAttribute="top" id="rfS-9h-eGr"/>
                             <constraint firstAttribute="trailing" secondItem="QpA-Ge-XQX" secondAttribute="trailing" id="vjk-a3-OIx"/>
                             <constraint firstItem="QpA-Ge-XQX" firstAttribute="top" secondItem="csp-wy-cb6" secondAttribute="top" id="wB8-Cr-4ws"/>
                             <constraint firstItem="QpA-Ge-XQX" firstAttribute="leading" secondItem="bR9-Op-8HH" secondAttribute="leading" id="wQy-a3-bGK"/>

@@ -252,6 +252,21 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
         return self.locationTextfield.isFirstResponder() || self.tellsUsAboutTextfield.isFirstResponder()
     }
+    
+    // Textfield Delegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        
+        return false
+    }
+
+    func textFieldDidEndEditing(textField: UITextField) {
+        if (textField.text == locationTextfield.text) {
+            mapIt(textField)
+        } else if (textField.text == tellsUsAboutTextfield.text) {
+            postLocation(textField)
+        }
+    }
 
     
     /**
@@ -267,11 +282,6 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     func unsubscribeFromKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-    }
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.endEditing(true)
-        return false
     }
     
     /**
