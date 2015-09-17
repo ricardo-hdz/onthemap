@@ -39,12 +39,14 @@ class ListViewController : ListMapViewController, UITableViewDataSource, UITable
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let location = self.getStoredLocations()[indexPath.row]
-        if (!location.mediaURL.isEmpty) {
-            let url = NSURL(string: location.mediaURL)
-            let app = UIApplication.sharedApplication()
-            app.openURL(url!)
+        if (Reachability.isConnectedToNetwork()) {
+            if (!location.mediaURL.isEmpty) {
+                let url = NSURL(string: location.mediaURL)
+                let app = UIApplication.sharedApplication()
+                app.openURL(url!)
+            }
+        } else {
+            handleError("On the Map - Network Error", error: "No network connection detected.")
         }
-        
     }
-    
 }

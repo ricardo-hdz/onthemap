@@ -41,9 +41,13 @@ class MapViewController: ListMapViewController, MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView!, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if control == annotationView.rightCalloutAccessoryView {
-            let app = UIApplication.sharedApplication()
-            app.openURL(NSURL(string: annotationView.annotation.subtitle!)!)
+        if (Reachability.isConnectedToNetwork()) {
+            if control == annotationView.rightCalloutAccessoryView {
+                let app = UIApplication.sharedApplication()
+                app.openURL(NSURL(string: annotationView.annotation.subtitle!)!)
+            }
+        } else {
+            handleError("On the Map - Network Error", error: "No network connection detected.")
         }
     }
     

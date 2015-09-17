@@ -19,8 +19,6 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     @IBOutlet weak var topViewStepTwo: UIView!
     
     @IBOutlet weak var whereLabel: UILabel!
-    @IBOutlet weak var locationErrorLabel: UILabel!
-    @IBOutlet weak var tellUsErrorLabel: UILabel!
     
     @IBOutlet weak var tellsUsAboutTextfield: CustomTextfield!
     @IBOutlet weak var locationTextfield: CustomTextfield!
@@ -72,13 +70,12 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
         // Controls - Step 1
         self.whereLabel.hidden = false
         self.locationTextfield.hidden = false
-        self.locationErrorLabel.hidden = true
         self.mapItButton.hidden = false
         
         // Controls - Step 2
         self.tellsUsAboutTextfield.hidden = true
-        self.tellUsErrorLabel.hidden = true
         self.submitButton.hidden = true
+        self.submitButton.enabled = false
     }
     
     func displayControlsMap() {
@@ -91,13 +88,12 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
         // Controls - Step 1
         self.whereLabel.hidden = true
         self.locationTextfield.hidden = true
-        self.locationErrorLabel.hidden = true
         self.mapItButton.hidden = true
         
         // Controls - Step 2
         self.tellsUsAboutTextfield.hidden = false
-        self.tellUsErrorLabel.hidden = true
         self.submitButton.hidden = false
+        self.submitButton.enabled = true
     }
     
     func setNavigationBar() {
@@ -115,14 +111,16 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
             clearMapAnnotations()
             searchLocation()
         } else {
-            handleLocationSearchError("Please enter your location")
+            activityIndicator.stopAnimating()
+            handleError("On the Map - Location", error: "Please enter your location")
         }
     }
     
     @IBAction func postLocation(sender: AnyObject) {
         // Post data
+        println("POSTing location")
         if (self.tellsUsAboutTextfield.text.isEmpty || self.tellsUsAboutTextfield.text == "Tell us about You!") {
-            self.tellUsErrorLabel.hidden = false
+            handleError("On the Map - URL", error: "Please share something with us!")
         } else {
             //post
             let serviceEndpoint = OnTheMapHelper.ParseApi.Endpoint + OnTheMapHelper.ParseApi.ClassApi + OnTheMapHelper.ParseApi.Methods.studentlocation
@@ -147,7 +145,7 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
             let task = OnTheMapHelper.getInstance().serviceRequest("POST", serviceEndpoint: serviceEndpoint, headers: headers, jsonBody: payload, postProcessor: nil) { result, error in
                 if let error = error {
                     println("Error while POSTing new location: \(error)")
-                    self.handlePOSTError("Location was not updated. Please try again.")
+                    self.handleError("On the Map - Network error", error: "Location was not updated. Please try again.")
                 } else {
                     if let createdAt = result.valueForKey("createdAt") as? String {
                         // dismiss controller
@@ -158,7 +156,7 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
                     } else {
                         var data = NSString(data: result as! NSData, encoding: NSUTF8StringEncoding)
                         println("Unknown response while posting location: \(data)")
-                        self.handlePOSTError("Location was not updated. Please try again.")
+                        self.handleError("On the Map - Parse error", error: "Location was not updated. Please try again.")
                     }
                 }
             }
@@ -177,8 +175,6 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     
     func textFieldDidBeginEditing(textField: UITextField) {
         textField.text = ""
-        self.locationErrorLabel.hidden = true
-        self.tellUsErrorLabel.hidden = true
     }
     
     func searchLocation() {
@@ -188,11 +184,11 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
         
         search.startWithCompletionHandler() { response, error in
             if let error = error {
-                self.handleLocationSearchError("Location not found. Please try again.")
+                self.handleError("On the Map - Network Error", error: "Unable to locate it. Please try again.")
                 println("Error while searching for location: \(error.localizedDescription)")
             } else {
                 if (response == nil) {
-                    self.handleLocationSearchError("Location not found. Please try again.")
+                    self.handleError("On the Map - Location", error: "Location not found. Please try again.")
                 } else {
                     // display location in map
                     self.annotationPoint = MKPointAnnotation()
@@ -217,16 +213,11 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
         }
     }
     
-    func handleLocationSearchError(error: String) {
-        activityIndicator.stopAnimating()
-        locationErrorLabel.text = error
-        locationErrorLabel.hidden = false
-    }
-    
-    func handlePOSTError(error: String) {
+    func handleError(alertTitle: String, error: String) {
+        let alertController = UIAlertController(title: alertTitle, message: error, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
         dispatch_async(dispatch_get_main_queue(), {
-            self.tellUsErrorLabel.text = error
-            self.tellUsErrorLabel.hidden = false
+            self.presentViewController(alertController, animated: true, completion: nil)
         })
     }
     
@@ -260,15 +251,6 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
         return false
     }
 
-    func textFieldDidEndEditing(textField: UITextField) {
-        if (textField.text == locationTextfield.text) {
-            mapIt(textField)
-        } else if (textField.text == tellsUsAboutTextfield.text) {
-            postLocation(textField)
-        }
-    }
-
-    
     /**
     Subscriber to keyboard notifications
     **/

@@ -12,13 +12,15 @@ import MapKit
 
 class ListMapViewController: UIViewController, UINavigationControllerDelegate {
     
+    let networkClient = Reachability()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.getStudentLocations(false, callback: self.displayStudentLocations)
     }
     
     override func viewWillAppear(animated: Bool) {
         setNavigationBarItems()
+        self.getStudentLocations(false, callback: self.displayStudentLocations)
     }
     
     func displayStudentLocations(locations: [StudentLocation]) {
@@ -79,9 +81,8 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
             
             let task = OnTheMapHelper.getInstance().serviceRequest("GET", serviceEndpoint: endpoint, headers: headers, jsonBody: nil, postProcessor: nil) { result, error in
                 if let error = error {
-                    self.handleError(error.localizedDescription)
+                    self.handleError("On the Map - Error", error: error.localizedDescription)
                 } else {
-                    // get data
                     if let locations = result.valueForKey("results") as? [[String: AnyObject]] {
                         var studentLocations: [StudentLocation] = [StudentLocation]()
                         for location in locations {
@@ -93,7 +94,7 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
                             callback(locations: studentLocations)
                         })
                     } else {
-                        self.handleError("Error while converting results to Dictionary")
+                        self.handleError("On the Map - Error", error:"Error while converting results to Dictionary")
                     }
                 }
             }
@@ -104,19 +105,17 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
     
     func setStoredLocations(locations: [StudentLocation]) {
         DataStore.getInstance().studentLocations = locations
-        /*let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        appDelegate.studentLocations = locations*/
     }
     
     func getStoredLocations() -> [StudentLocation] {
         return DataStore.getInstance().studentLocations
-        /*let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        return appDelegate.studentLocations*/
     }
     
-    func handleError(error: String) {
+    func handleError(alertTitle: String, error: String) {
+        let alertController = UIAlertController(title: alertTitle, message: error, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
         dispatch_async(dispatch_get_main_queue(), {
-            println("Error while retrieving studnet locations: \(error)")
+            self.presentViewController(alertController, animated: true, completion: nil)
         })
     }
 }
