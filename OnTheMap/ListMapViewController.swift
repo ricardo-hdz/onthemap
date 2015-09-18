@@ -32,10 +32,9 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
     **/
     func setNavigationBarItems() {
         // FB log out Button
-        if (FBSDKAccessToken.currentAccessToken() != nil) {
-            var logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "fbLogoutAction")
-            self.navigationItem.leftBarButtonItem = logoutButton
-        }
+        
+        var logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logoutAction")
+        self.navigationItem.leftBarButtonItem = logoutButton
         
         // Refresh Button
         var refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refreshAction")
@@ -55,12 +54,27 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
         self.getStudentLocations(true, callback: self.displayStudentLocations)
     }
     
-    func fbLogoutAction() {
+    func logoutAction() {
         if (FBSDKAccessToken.currentAccessToken() != nil) {
             var fbLoginManager = FBSDKLoginManager()
             fbLoginManager.logOut()
-            self.navigationItem.leftBarButtonItem = nil
+            self.displayLogin()
+        } else {
+            LoginHelper.deleteSession { result, error in
+                if let error = error {
+                    self.handleError("On the Map - Logout", error: error)
+                } else {
+                    self.displayLogin()
+                }
+            }
         }
+    }
+    
+    func displayLogin() {
+        dispatch_async(dispatch_get_main_queue(), {
+            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("loginController") as! LoginViewController
+            self.presentViewController(controller, animated: true, completion: nil)
+        })
     }
     
     func postAction() {

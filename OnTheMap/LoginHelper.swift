@@ -36,6 +36,34 @@ class LoginHelper {
         }
     }
     
+    class func deleteSession(callback: (result: Bool, error: String?) -> Void) {
+        let serviceEndpoint = OnTheMapHelper.API.udacityEndpoint + OnTheMapHelper.API.udacityApi + OnTheMapHelper.API.Methods.session
+        
+        var xsrfCookie: NSHTTPCookie? = nil
+        let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        for cookie in sharedCookieStorage.cookies as! [NSHTTPCookie] {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        
+        let headers: NSMutableDictionary = [
+            OnTheMapHelper.API.Cookies.auth_token: xsrfCookie!.value!
+        ]
+        
+        var task = OnTheMapHelper.getInstance().serviceRequest("DELETE", serviceEndpoint: serviceEndpoint, headers: headers, jsonBody: nil, postProcessor: OnTheMapHelper.getInstance().trimResponse) { result, error in
+            if let error = error {
+                callback(result: false, error: error.localizedDescription)
+            } else {
+                let session = result.valueForKey("session") as? NSDictionary
+                let expiration: AnyObject? = session?.valueForKey("expiration")
+                if (expiration != nil) {
+                    callback(result: true, error: nil)
+                } else {
+                    callback(result: false, error: "Unable to log out. Please try again")
+                }
+            }
+        }
+    }
+    
     class func getUdacityProfile(userId: String, callback: (profile: UdacityProfile?, error: String?) -> Void) {
         var method = OnTheMapHelper.getInstance().replaceParamsInUrl(OnTheMapHelper.API.Methods.users, paramId: "userId", paramValue: userId)
         var endpoint = OnTheMapHelper.API.udacityEndpoint + OnTheMapHelper.API.udacityApi + method!
