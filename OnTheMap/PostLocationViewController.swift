@@ -118,46 +118,28 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     
     @IBAction func postLocation(sender: AnyObject) {
         // Post data
-        println("POSTing location")
         if (self.tellsUsAboutTextfield.text.isEmpty || self.tellsUsAboutTextfield.text == "Tell us about You!") {
             handleError("On the Map - URL", error: "Please share something with us!")
         } else {
-            //post
-            let serviceEndpoint = OnTheMapHelper.ParseApi.Endpoint + OnTheMapHelper.ParseApi.ClassApi + OnTheMapHelper.ParseApi.Methods.studentlocation
+            let profile = self.getSessionProfile()
             
-            var headers : NSMutableDictionary = [
-                OnTheMapHelper.ParseApi.Headers.AppIdKey: OnTheMapHelper.ParseApi.Headers.AppIdValue,
-                OnTheMapHelper.ParseApi.Headers.RestApiKey: OnTheMapHelper.ParseApi.Headers.RestApiValue
-            ]
-            
-            var profile = self.getSessionProfile()
-
-            var payload : [String: AnyObject] = [
+            var location: [String: AnyObject] = [
                 "uniqueKey": profile.userId!,
                 "firstName": profile.firstName!,
                 "lastName": profile.lastName!,
-                "mapString": self.locationTextfield.text,
-                "mediaURL": self.tellsUsAboutTextfield.text,
+                "mapString": locationTextfield.text,
+                "mediaURL": tellsUsAboutTextfield.text,
                 "latitude": self.annotationPoint.coordinate.latitude,
                 "longitude": self.annotationPoint.coordinate.longitude
             ]
             
-            let task = OnTheMapHelper.getInstance().serviceRequest("POST", serviceEndpoint: serviceEndpoint, headers: headers, jsonBody: payload, postProcessor: nil) { result, error in
+            LocationHelper.postLocation(location) { result, error in
                 if let error = error {
-                    println("Error while POSTing new location: \(error)")
-                    self.handleError("On the Map - Network error", error: "Location was not updated. Please try again.")
+                    self.handleError("On the Map - Network error", error: error)
                 } else {
-                    if let createdAt = result.valueForKey("createdAt") as? String {
-                        // dismiss controller
-                        println("Succesfully posted location")
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.dismissViewControllerAnimated(true, completion: nil)
-                        })
-                    } else {
-                        var data = NSString(data: result as! NSData, encoding: NSUTF8StringEncoding)
-                        println("Unknown response while posting location: \(data)")
-                        self.handleError("On the Map - Parse error", error: "Location was not updated. Please try again.")
-                    }
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    })
                 }
             }
         }
@@ -178,45 +160,26 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     }
     
     func searchLocation() {
-        searchRequest = MKLocalSearchRequest()
-        searchRequest.naturalLanguageQuery = locationTextfield.text
-        search = MKLocalSearch(request: searchRequest)
-        
-        search.startWithCompletionHandler() { response, error in
+        LocationHelper.searchMapRequest(locationTextfield.text) { annotationView, region, error in
             if let error = error {
-                self.handleError("On the Map - Network Error", error: "Unable to locate it. Please try again.")
-                println("Error while searching for location: \(error.localizedDescription)")
+                self.handleError("On the Map - Location Error", error: error)
             } else {
-                if (response == nil) {
-                    self.handleError("On the Map - Location", error: "Location not found. Please try again.")
-                } else {
-                    // display location in map
-                    self.annotationPoint = MKPointAnnotation()
-                    self.annotationPoint.title = self.locationTextfield.text
-                    var locationCoord = CLLocationCoordinate2D(latitude: response.boundingRegion.center.latitude, longitude: response.boundingRegion.center.longitude)
-                    self.annotationPoint.coordinate = locationCoord
-                    
-                    self.annotationView = MKAnnotationView(annotation: self.annotationPoint, reuseIdentifier: nil)
-                    self.locationMap.center = self.annotationView.center
-                    self.locationMap.addAnnotation(self.annotationView.annotation)
-                    
-                    // Set Region
-                    self.mapSpan = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
-                    self.mapRegion = MKCoordinateRegion(center: locationCoord, span: self.mapSpan)
-                    self.locationMap.setRegion(self.mapRegion, animated: true)
-                    
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.locationMap.center = annotationView!.center
+                    self.locationMap.addAnnotation(annotationView!.annotation)
+                    self.locationMap.setRegion(region!, animated: true)
                     self.activityIndicator.stopAnimating()
-                    // Display step 2
                     self.displayControlsMap()
-                }
+                })
             }
         }
     }
     
     func handleError(alertTitle: String, error: String) {
-        let alertController = UIAlertController(title: alertTitle, message: error, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
         dispatch_async(dispatch_get_main_queue(), {
+            self.activityIndicator.stopAnimating()
+            let alertController = UIAlertController(title: alertTitle, message: error, preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alertController, animated: true, completion: nil)
         })
     }
