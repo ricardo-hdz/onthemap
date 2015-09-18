@@ -77,13 +77,8 @@ class LoginHelper {
                 if let user = result.valueForKey("user") as? NSDictionary {
                     let firstName = user.valueForKey("first_name") as? String
                     let lastName = user.valueForKey("last_name") as? String
-                    // create profile
                     var profile = UdacityProfile(userId: userId, firstName: firstName!, lastName: lastName!)
-                    // store it
                     callback(profile: profile, error: nil)
-                    //self.setSessionProfile(profile)
-                    // segue to map view
-                    //self.displayMapView()
                 }
             }
         }

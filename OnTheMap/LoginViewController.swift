@@ -93,7 +93,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
                     OnTheMapHelper.API.Parameters.password: password
                 ]
             ]
-            //self.createSession(payload)
             loginWithCredentials(credentials)
         }
     }

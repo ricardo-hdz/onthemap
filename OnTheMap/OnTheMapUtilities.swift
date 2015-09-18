@@ -42,10 +42,6 @@ extension OnTheMapHelper {
             postProcessedResponse = postProcessor!(data: data)
         }
         
-        //println(NSString(data: data, encoding: NSUTF8StringEncoding))
-        println("Parsed data:")
-        println(NSString(data: postProcessedResponse, encoding: NSUTF8StringEncoding))
-
         let parsedData: AnyObject? = NSJSONSerialization.JSONObjectWithData(postProcessedResponse, options: .AllowFragments, error: &parseError)
         
         if let error = parseError {
@@ -59,13 +55,11 @@ extension OnTheMapHelper {
     
     func escapedParameters(parameters: [String : AnyObject]) -> String {
         var urlVars = [String]()
-        //if (parameters != nil) {
-            for (key, value) in parameters {
-                let stringValue = "\(value)"
-                let escapedValue = stringValue.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-                urlVars += [key + "=" + "\(escapedValue!)"]
-            }
-        //}
+        for (key, value) in parameters {
+            let stringValue = "\(value)"
+            let escapedValue = stringValue.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+            urlVars += [key + "=" + "\(escapedValue!)"]
+        }
         return (!urlVars.isEmpty ? "?" : "") + join("&", urlVars)
     }
 
