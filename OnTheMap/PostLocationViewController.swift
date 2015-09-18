@@ -163,15 +163,27 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     }
     
     func searchLocation() {
-        LocationHelper.searchMapRequest(locationTextfield.text) { annotationView, region, error in
+        LocationHelper.searchGeocodeByString(locationTextfield.text) { placemark, error in
             if let error = error {
                 self.handleAlert("On the Map - Location Error", error: error)
             } else {
                 dispatch_async(dispatch_get_main_queue(), {
+                    
+                    var annotationPoint = MKPointAnnotation()
+                    annotationPoint.title = self.locationTextfield.text
+                    var locationCoord = CLLocationCoordinate2DMake(placemark!.location.coordinate.latitude, placemark!.location.coordinate.longitude)
+                    annotationPoint.coordinate = locationCoord
+                    var annotationView = MKAnnotationView(annotation: annotationPoint, reuseIdentifier: nil)
+                    
                     self.annotationView = annotationView
                     self.locationMap.center = annotationView!.center
                     self.locationMap.addAnnotation(annotationView!.annotation)
-                    self.locationMap.setRegion(region!, animated: true)
+                    
+                    var mapSpan = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
+                    var mapRegion = MKCoordinateRegion(center: locationCoord, span: mapSpan)
+                    self.locationMap.setRegion(mapRegion, animated: true)
+                    
+                    // display controls
                     self.activityIndicator.stopAnimating()
                     self.displayControlsMap()
                 })

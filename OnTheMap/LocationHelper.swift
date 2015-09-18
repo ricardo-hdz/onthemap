@@ -7,6 +7,7 @@
 //
 
 import MapKit
+import CoreLocation
 
 class LocationHelper {
 
@@ -32,32 +33,19 @@ class LocationHelper {
         }
     }
     
-    class func searchMapRequest(location: String, callback: (annotationView: MKAnnotationView?, region: MKCoordinateRegion?, error: String?) -> Void ) {
-        var searchRequest = MKLocalSearchRequest()
-        searchRequest.naturalLanguageQuery = location
-        var search = MKLocalSearch(request: searchRequest)
-        
-        search.startWithCompletionHandler() { response, error in
+    class func searchGeocodeByString(location: String, callback: (placemark: CLPlacemark?, error: String?) -> Void) {
+        CLGeocoder().geocodeAddressString(location) { placemarks, error in
             if let error = error {
-                callback(annotationView: nil, region: nil, error: "Unable to locate it. Please try again.")
+                callback(placemark: nil, error: error.localizedDescription)
             } else {
-                if (response == nil) {
-                    callback(annotationView: nil, region: nil, error: "Location not found. Please try again.")
+                if let placemarks = placemarks as? [CLPlacemark] {
+                    if placemarks[0].location != nil {
+                        callback(placemark: placemarks[0], error: nil)
+                    } else {
+                        callback(placemark: nil, error: "No location found for \(location)")
+                    }
                 } else {
-                    // display location in map
-                    var annotationPoint = MKPointAnnotation()
-                    annotationPoint.title = location
-                    
-                    var locationCoord = CLLocationCoordinate2D(latitude: response.boundingRegion.center.latitude, longitude: response.boundingRegion.center.longitude)
-                    annotationPoint.coordinate = locationCoord
-                    
-                    var annotationView = MKAnnotationView(annotation: annotationPoint, reuseIdentifier: nil)
-                    
-                    // Set Region
-                    var mapSpan = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
-                    var mapRegion = MKCoordinateRegion(center: locationCoord, span: mapSpan)
-                    
-                    callback(annotationView: annotationView, region: mapRegion, error: nil)
+                    callback(placemark: nil, error: "Unable to geocode this location.")
                 }
             }
         }
