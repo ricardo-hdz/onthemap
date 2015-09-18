@@ -31,12 +31,8 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     var search: MKLocalSearch!
     var searchRequest: MKLocalSearchRequest!
     var searchResponse: MKLocalSearchResponse!
-    
-    var annotation: MKAnnotation!
-    var annotationPoint: MKPointAnnotation!
+  
     var annotationView: MKAnnotationView!
-    var mapSpan: MKCoordinateSpan!
-    var mapRegion: MKCoordinateRegion!
     
     var keyboardHeight: CGFloat?
 
@@ -112,16 +108,23 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
             searchLocation()
         } else {
             activityIndicator.stopAnimating()
-            handleError("On the Map - Location", error: "Please enter your location")
+            handleAlert("On the Map - Location", error: "Please enter your location")
         }
     }
     
     @IBAction func postLocation(sender: AnyObject) {
         // Post data
         if (self.tellsUsAboutTextfield.text.isEmpty || self.tellsUsAboutTextfield.text == "Tell us about You!") {
-            handleError("On the Map - URL", error: "Please share something with us!")
+            handleAlert("On the Map - URL", error: "Please share something with us!")
         } else {
             let profile = self.getSessionProfile()
+            
+            println("Profile user id: \(profile.userId)")
+            println("Profile user id: \(profile.firstName)")
+            println("Profile user id: \(profile.lastName)")
+            println("Location user id: \(locationTextfield.text)")
+            println("Profile user id: \(self.annotationView.annotation.coordinate.latitude)")
+            println("Profile user id: \(self.annotationView.annotation.coordinate.longitude)")
             
             var location: [String: AnyObject] = [
                 "uniqueKey": profile.userId!,
@@ -129,14 +132,14 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
                 "lastName": profile.lastName!,
                 "mapString": locationTextfield.text,
                 "mediaURL": tellsUsAboutTextfield.text,
-                "latitude": self.annotationPoint.coordinate.latitude,
-                "longitude": self.annotationPoint.coordinate.longitude
+                "latitude": self.annotationView.annotation.coordinate.latitude,
+                "longitude": self.annotationView.annotation.coordinate.longitude
             ]
             
             LocationHelper.postLocation(location) { result, error in
                 if let error = error {
-                    self.handleError("On the Map - Network error", error: error)
-                } else {
+                    self.handleAlert("On the Map - Network error", error: error)
+                } else if result {
                     dispatch_async(dispatch_get_main_queue(), {
                         self.dismissViewControllerAnimated(true, completion: nil)
                     })
@@ -162,9 +165,10 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     func searchLocation() {
         LocationHelper.searchMapRequest(locationTextfield.text) { annotationView, region, error in
             if let error = error {
-                self.handleError("On the Map - Location Error", error: error)
+                self.handleAlert("On the Map - Location Error", error: error)
             } else {
                 dispatch_async(dispatch_get_main_queue(), {
+                    self.annotationView = annotationView
                     self.locationMap.center = annotationView!.center
                     self.locationMap.addAnnotation(annotationView!.annotation)
                     self.locationMap.setRegion(region!, animated: true)
@@ -175,7 +179,7 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
         }
     }
     
-    func handleError(alertTitle: String, error: String) {
+    func handleAlert(alertTitle: String, error: String) {
         dispatch_async(dispatch_get_main_queue(), {
             self.activityIndicator.stopAnimating()
             let alertController = UIAlertController(title: alertTitle, message: error, preferredStyle: UIAlertControllerStyle.Alert)
@@ -186,7 +190,7 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     
     func clearMapAnnotations() {
         if (self.locationMap.annotations.count != 0) {
-            annotation = self.locationMap.annotations[0] as! MKAnnotation
+            var annotation = self.locationMap.annotations[0] as! MKAnnotation
             self.locationMap.removeAnnotation(annotation)
         }
     }
