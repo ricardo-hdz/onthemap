@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E610780F1BAA1A29004B37A9 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610780E1BAA1A29004B37A9 /* DataStore.swift */; };
 		E61078111BAB5FFF004B37A9 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61078101BAB5FFF004B37A9 /* Reachability.swift */; };
+		E61078131BAB66DC004B37A9 /* LoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61078121BAB66DC004B37A9 /* LoginHelper.swift */; };
 		E6702FCB1B96A2BA009B0C0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6702FCA1B96A2BA009B0C0B /* AppDelegate.swift */; };
 		E6702FD01B96A2BA009B0C0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6702FCE1B96A2BA009B0C0B /* Main.storyboard */; };
 		E6702FD21B96A2BA009B0C0B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6702FD11B96A2BA009B0C0B /* Images.xcassets */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		E610780E1BAA1A29004B37A9 /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		E61078101BAB5FFF004B37A9 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		E61078121BAB66DC004B37A9 /* LoginHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginHelper.swift; sourceTree = "<group>"; };
 		E6702FC51B96A2BA009B0C0B /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6702FC91B96A2BA009B0C0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6702FCA1B96A2BA009B0C0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				E67030091B9C9F56009B0C0B /* StudentLocation.swift */,
 				E610780E1BAA1A29004B37A9 /* DataStore.swift */,
 				E61078101BAB5FFF004B37A9 /* Reachability.swift */,
+				E61078121BAB66DC004B37A9 /* LoginHelper.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				E6702FFE1B9749E6009B0C0B /* OnTheMapUtilities.swift in Sources */,
 				E670300C1B9CDF25009B0C0B /* ListMapViewCell.swift in Sources */,
 				E610780F1BAA1A29004B37A9 /* DataStore.swift in Sources */,
+				E61078131BAB66DC004B37A9 /* LoginHelper.swift in Sources */,
 				E61078111BAB5FFF004B37A9 /* Reachability.swift in Sources */,
 				E6702FCB1B96A2BA009B0C0B /* AppDelegate.swift in Sources */,
 			);
