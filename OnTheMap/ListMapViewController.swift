@@ -86,30 +86,14 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
     func getStudentLocations(forceRefresh: Bool, callback: (locations: [StudentLocation]) -> Void) {
         var locations = self.getStoredLocations()
         if (locations.count == 0 || forceRefresh) {
-            var endpoint = OnTheMapHelper.ParseApi.Endpoint + OnTheMapHelper.ParseApi.ClassApi + OnTheMapHelper.ParseApi.Methods.studentlocation
-            
-            var headers: NSMutableDictionary = [
-                OnTheMapHelper.ParseApi.Headers.AppIdKey: OnTheMapHelper.ParseApi.Headers.AppIdValue,
-                OnTheMapHelper.ParseApi.Headers.RestApiKey: OnTheMapHelper.ParseApi.Headers.RestApiValue
-            ]
-            
-            let task = OnTheMapHelper.getInstance().serviceRequest("GET", serviceEndpoint: endpoint, headers: headers, jsonBody: nil, postProcessor: nil) { result, error in
+            StudentLocationHelper.requestStudentLocations() { studentLocations, error in
                 if let error = error {
-                    self.handleError("On the Map - Error", error: error.localizedDescription)
+                    self.handleError("On the Map - Error", error: error)
                 } else {
-                    if let locations = result.valueForKey("results") as? [[String: AnyObject]] {
-                        var studentLocations: [StudentLocation] = [StudentLocation]()
-                        for location in locations {
-                            var studentLocation = StudentLocation(data: location)
-                            studentLocations.append(studentLocation)
-                        }
-                        self.setStoredLocations(studentLocations)
-                        dispatch_async(dispatch_get_main_queue(), {
-                            callback(locations: studentLocations)
-                        })
-                    } else {
-                        self.handleError("On the Map - Error", error:"Error while converting results to Dictionary")
-                    }
+                    self.setStoredLocations(studentLocations!)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        callback(locations: studentLocations!)
+                    })
                 }
             }
         } else {

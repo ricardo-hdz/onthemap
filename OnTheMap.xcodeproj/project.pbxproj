@@ -11,6 +11,7 @@
 		E61078111BAB5FFF004B37A9 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61078101BAB5FFF004B37A9 /* Reachability.swift */; };
 		E61078131BAB66DC004B37A9 /* LoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61078121BAB66DC004B37A9 /* LoginHelper.swift */; };
 		E61078151BAB8C1A004B37A9 /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61078141BAB8C1A004B37A9 /* LocationHelper.swift */; };
+		E610781B1BADE6D2004B37A9 /* StudentLocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610781A1BADE6D2004B37A9 /* StudentLocationHelper.swift */; };
 		E6702FCB1B96A2BA009B0C0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6702FCA1B96A2BA009B0C0B /* AppDelegate.swift */; };
 		E6702FD01B96A2BA009B0C0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6702FCE1B96A2BA009B0C0B /* Main.storyboard */; };
 		E6702FD21B96A2BA009B0C0B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6702FD11B96A2BA009B0C0B /* Images.xcassets */; };
@@ -51,6 +52,7 @@
 		E61078101BAB5FFF004B37A9 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		E61078121BAB66DC004B37A9 /* LoginHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginHelper.swift; sourceTree = "<group>"; };
 		E61078141BAB8C1A004B37A9 /* LocationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
+		E610781A1BADE6D2004B37A9 /* StudentLocationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationHelper.swift; sourceTree = "<group>"; };
 		E6702FC51B96A2BA009B0C0B /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6702FC91B96A2BA009B0C0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6702FCA1B96A2BA009B0C0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				E61078101BAB5FFF004B37A9 /* Reachability.swift */,
 				E61078121BAB66DC004B37A9 /* LoginHelper.swift */,
 				E61078141BAB8C1A004B37A9 /* LocationHelper.swift */,
+				E610781A1BADE6D2004B37A9 /* StudentLocationHelper.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				E610780F1BAA1A29004B37A9 /* DataStore.swift in Sources */,
 				E61078131BAB66DC004B37A9 /* LoginHelper.swift in Sources */,
 				E61078111BAB5FFF004B37A9 /* Reachability.swift in Sources */,
+				E610781B1BADE6D2004B37A9 /* StudentLocationHelper.swift in Sources */,
 				E6702FCB1B96A2BA009B0C0B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
