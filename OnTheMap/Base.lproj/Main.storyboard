@@ -33,7 +33,7 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="7DcbLUyg1TSmBl" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hEk-lZ-8JR" customClass="CustomTextfield" customModule="OnTheMap" customModuleProvider="target">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hEk-lZ-8JR" customClass="CustomTextfield" customModule="OnTheMap" customModuleProvider="target">
                                 <rect key="frame" x="163" y="335" width="274" height="30"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -42,7 +42,7 @@
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOK-pH-jnE">
                                 <rect key="frame" x="163" y="385" width="274" height="30"/>
@@ -93,7 +93,7 @@
                                     <action selector="signupAction:" destination="i0t-H6-ucd" eventType="touchUpInside" id="u1z-wv-bZ6"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ricardo.hdz@gmail.com" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3GB-8v-bhP" customClass="CustomTextfield" customModule="OnTheMap" customModuleProvider="target">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3GB-8v-bhP" customClass="CustomTextfield" customModule="OnTheMap" customModuleProvider="target">
                                 <rect key="frame" x="163" y="285" width="274" height="30"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -520,7 +520,7 @@
                                             <action selector="mapIt:" destination="BOe-iB-Ne8" eventType="touchUpInside" id="QBc-Ea-qK7"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="La Paz" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="a7u-p3-uPh" customClass="CustomTextfield" customModule="OnTheMap" customModuleProvider="target">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Location" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="a7u-p3-uPh" customClass="CustomTextfield" customModule="OnTheMap" customModuleProvider="target">
                                         <rect key="frame" x="210" y="8" width="180" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="180" id="CLZ-mi-Hq5"/>
