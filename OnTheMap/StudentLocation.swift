@@ -20,7 +20,6 @@ struct StudentLocation {
     
     init(data: NSDictionary) {
         self.createdAt = data.valueForKey("createdAt") as! String
-        self.createdAt = data.valueForKey("createdAt") as! String
         self.firstName = data.valueForKey("firstName") as! String
         self.lastName = data.valueForKey("lastName") as! String
         self.latitude = data.valueForKey("latitude") as! Double

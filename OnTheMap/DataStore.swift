@@ -16,4 +16,9 @@ class DataStore : NSObject {
         }
         return Singleton.instance
     }
+    
+    func getSortedLocations() -> [StudentLocation] {
+        self.studentLocations.sort{ $0.updatedAt > $1.updatedAt }
+        return self.studentLocations
+    }
 }

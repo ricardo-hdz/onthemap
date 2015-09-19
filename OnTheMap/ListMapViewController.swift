@@ -84,15 +84,16 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     func getStudentLocations(forceRefresh: Bool, callback: (locations: [StudentLocation]) -> Void) {
-        var locations = self.getStoredLocations()
+        var locations = self.getSortedLocations()
         if (locations.count == 0 || forceRefresh) {
             StudentLocationHelper.requestStudentLocations() { studentLocations, error in
                 if let error = error {
                     self.handleError("On the Map - Error", error: error)
                 } else {
                     self.setStoredLocations(studentLocations!)
+                    var sortedLocations = self.getSortedLocations()
                     dispatch_async(dispatch_get_main_queue(), {
-                        callback(locations: studentLocations!)
+                        callback(locations: sortedLocations)
                     })
                 }
             }
@@ -107,6 +108,10 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
     
     func getStoredLocations() -> [StudentLocation] {
         return DataStore.getInstance().studentLocations
+    }
+    
+    func getSortedLocations() -> [StudentLocation] {
+        return DataStore.getInstance().getSortedLocations()
     }
     
     func handleError(alertTitle: String, error: String) {

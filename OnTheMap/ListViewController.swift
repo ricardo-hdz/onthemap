@@ -30,7 +30,7 @@ class ListViewController : ListMapViewController, UITableViewDataSource, UITable
     }
     
     @objc func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let location = self.getStoredLocations()[indexPath.row]
+        let location = self.getSortedLocations()[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier("locationCell") as! ListMapViewCell
         cell.locationTitle.text = "\(location.firstName) \(location.lastName)"
         
@@ -38,7 +38,7 @@ class ListViewController : ListMapViewController, UITableViewDataSource, UITable
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let location = self.getStoredLocations()[indexPath.row]
+        let location = self.getSortedLocations()[indexPath.row]
         if (Reachability.isConnectedToNetwork()) {
             if (!location.mediaURL.isEmpty) {
                 let url = NSURL(string: location.mediaURL)
