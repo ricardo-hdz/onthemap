@@ -42,8 +42,14 @@ class ListViewController : ListMapViewController, UITableViewDataSource, UITable
         if (Reachability.isConnectedToNetwork()) {
             if (!location.mediaURL.isEmpty) {
                 let url = NSURL(string: location.mediaURL)
-                let app = UIApplication.sharedApplication()
-                app.openURL(url!)
+                if (url != nil && url?.scheme != nil && url?.host != nil) {
+                    let app = UIApplication.sharedApplication()
+                    app.openURL(url!)
+                } else {
+                    handleError("On the Map", error: "There is no media URL associated with this location.")
+                }
+            } else {
+                handleError("On the Map", error: "There is no media URL associated with this location.")
             }
         } else {
             handleError("On the Map - Network Error", error: "No network connection detected.")
