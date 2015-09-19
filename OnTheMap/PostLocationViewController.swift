@@ -40,8 +40,8 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
         super.viewDidLoad()
         self.locationTextfield.delegate = self
         self.tellsUsAboutTextfield.delegate = self
-        self.subscribeToKeyboardNotifications()
-        
+        subscribeToKeyboardNotifications()
+        setTapRecognizer()
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -113,28 +113,10 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     }
     
     @IBAction func postLocation(sender: AnyObject) {
-        // Post data
         if (self.tellsUsAboutTextfield.text.isEmpty || self.tellsUsAboutTextfield.text == "Tell us about You!") {
             handleAlert("On the Map - URL", error: "Please share something with us!")
         } else {
-            let profile = self.getSessionProfile()
-            
-            println("Profile user id: \(profile.userId)")
-            println("Profile user id: \(profile.firstName)")
-            println("Profile user id: \(profile.lastName)")
-            println("Location user id: \(locationTextfield.text)")
-            println("Profile user id: \(self.annotationView.annotation.coordinate.latitude)")
-            println("Profile user id: \(self.annotationView.annotation.coordinate.longitude)")
-            
-            var location: [String: AnyObject] = [
-                "uniqueKey": profile.userId!,
-                "firstName": profile.firstName!,
-                "lastName": profile.lastName!,
-                "mapString": locationTextfield.text,
-                "mediaURL": tellsUsAboutTextfield.text,
-                "latitude": self.annotationView.annotation.coordinate.latitude,
-                "longitude": self.annotationView.annotation.coordinate.longitude
-            ]
+            let location = self.getLocationToPost()
             
             LocationHelper.postLocation(location) { result, error in
                 if let error = error {
@@ -146,6 +128,22 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
                 }
             }
         }
+    }
+    
+    func getLocationToPost() -> [String: AnyObject] {
+        let profile = self.getSessionProfile()
+        
+        var location: [String: AnyObject] = [
+            "uniqueKey": profile.userId!,
+            "firstName": profile.firstName!,
+            "lastName": profile.lastName!,
+            "mapString": locationTextfield.text,
+            "mediaURL": tellsUsAboutTextfield.text,
+            "latitude": self.annotationView.annotation.coordinate.latitude,
+            "longitude": self.annotationView.annotation.coordinate.longitude
+        ]
+        
+        return location
     }
     
     func getSessionProfile() ->  UdacityProfile {
@@ -162,33 +160,45 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
         textField.text = ""
     }
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        if (textField.text == locationTextfield.text) {
+            mapIt(textField)
+        } else if (textField.text == tellsUsAboutTextfield.text) {
+            postLocation(textField)
+        }
+        return false
+    }
+    
     func searchLocation() {
         LocationHelper.searchGeocodeByString(locationTextfield.text) { placemark, error in
             if let error = error {
                 self.handleAlert("On the Map - Location Error", error: error)
             } else {
+                self.setPlacemarkInMap(placemark!)
                 dispatch_async(dispatch_get_main_queue(), {
-                    
-                    var annotationPoint = MKPointAnnotation()
-                    annotationPoint.title = self.locationTextfield.text
-                    var locationCoord = CLLocationCoordinate2DMake(placemark!.location.coordinate.latitude, placemark!.location.coordinate.longitude)
-                    annotationPoint.coordinate = locationCoord
-                    var annotationView = MKAnnotationView(annotation: annotationPoint, reuseIdentifier: nil)
-                    
-                    self.annotationView = annotationView
-                    self.locationMap.center = annotationView!.center
-                    self.locationMap.addAnnotation(annotationView!.annotation)
-                    
-                    var mapSpan = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
-                    var mapRegion = MKCoordinateRegion(center: locationCoord, span: mapSpan)
-                    self.locationMap.setRegion(mapRegion, animated: true)
-                    
                     // display controls
                     self.activityIndicator.stopAnimating()
                     self.displayControlsMap()
                 })
             }
         }
+    }
+    
+    func setPlacemarkInMap(placemark: CLPlacemark) {
+        var annotationPoint = MKPointAnnotation()
+        annotationPoint.title = self.locationTextfield.text
+        var locationCoord = CLLocationCoordinate2DMake(placemark.location.coordinate.latitude, placemark.location.coordinate.longitude)
+        annotationPoint.coordinate = locationCoord
+        var annotationView = MKAnnotationView(annotation: annotationPoint, reuseIdentifier: nil)
+        
+        self.annotationView = annotationView
+        self.locationMap.center = annotationView!.center
+        self.locationMap.addAnnotation(annotationView!.annotation)
+        
+        var mapSpan = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
+        var mapRegion = MKCoordinateRegion(center: locationCoord, span: mapSpan)
+        self.locationMap.setRegion(mapRegion, animated: true)
     }
     
     func handleAlert(alertTitle: String, error: String) {
@@ -222,13 +232,6 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
         return self.locationTextfield.isFirstResponder() || self.tellsUsAboutTextfield.isFirstResponder()
     }
-    
-    // Textfield Delegate
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.endEditing(true)
-        
-        return false
-    }
 
     /**
     Subscriber to keyboard notifications
@@ -250,7 +253,7 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     **/
     func keyboardWillShow(notification: NSNotification) {
         setKeyboardHeight(notification)
-        self.view.frame.origin.y -= self.keyboardHeight!
+        mapItButton.frame.origin.y -= self.keyboardHeight!
     }
     
     /**
@@ -258,7 +261,7 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
     **/
     func keyboardWillHide(notification: NSNotification) {
         if (self.keyboardHeight != nil) {
-            self.view.frame.origin.y += self.keyboardHeight!
+            mapItButton.frame.origin.y += self.keyboardHeight!
             self.keyboardHeight = nil
         }
     }
@@ -271,7 +274,4 @@ class PostLocationViewController: UIViewController, MKMapViewDelegate, UITextFie
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
         self.keyboardHeight = keyboardSize.CGRectValue().height
     }
-
-    
-    
 }
