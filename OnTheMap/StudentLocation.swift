@@ -31,3 +31,20 @@ struct StudentLocation {
         self.updatedAt = data.valueForKey("updatedAt") as! String
     }
 }
+
+class StudentLocationDataStore : NSObject {
+    var studentLocations = [StudentLocation]()
+    
+    /* Singleton */
+    class func getInstance() -> StudentLocationDataStore {
+        struct Singleton {
+            static var instance = StudentLocationDataStore()
+        }
+        return Singleton.instance
+    }
+    
+    func getSortedLocations() -> [StudentLocation] {
+        self.studentLocations.sort{ $0.updatedAt > $1.updatedAt }
+        return self.studentLocations
+    }
+}

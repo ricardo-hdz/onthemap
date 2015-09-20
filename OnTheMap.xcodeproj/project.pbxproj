@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E610780F1BAA1A29004B37A9 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610780E1BAA1A29004B37A9 /* DataStore.swift */; };
 		E61078111BAB5FFF004B37A9 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61078101BAB5FFF004B37A9 /* Reachability.swift */; };
 		E61078131BAB66DC004B37A9 /* LoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61078121BAB66DC004B37A9 /* LoginHelper.swift */; };
 		E61078151BAB8C1A004B37A9 /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61078141BAB8C1A004B37A9 /* LocationHelper.swift */; };
@@ -48,7 +47,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E610780E1BAA1A29004B37A9 /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		E61078101BAB5FFF004B37A9 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		E61078121BAB66DC004B37A9 /* LoginHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginHelper.swift; sourceTree = "<group>"; };
 		E61078141BAB8C1A004B37A9 /* LocationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
@@ -174,7 +172,6 @@
 				E6702FFD1B9749E6009B0C0B /* OnTheMapUtilities.swift */,
 				E6702FFF1B97B569009B0C0B /* UdacityProfile.swift */,
 				E67030091B9C9F56009B0C0B /* StudentLocation.swift */,
-				E610780E1BAA1A29004B37A9 /* DataStore.swift */,
 				E61078101BAB5FFF004B37A9 /* Reachability.swift */,
 				E61078121BAB66DC004B37A9 /* LoginHelper.swift */,
 				E61078141BAB8C1A004B37A9 /* LocationHelper.swift */,
@@ -332,7 +329,6 @@
 				E67030081B9B3EC3009B0C0B /* ListMapViewController.swift in Sources */,
 				E6702FFE1B9749E6009B0C0B /* OnTheMapUtilities.swift in Sources */,
 				E670300C1B9CDF25009B0C0B /* ListMapViewCell.swift in Sources */,
-				E610780F1BAA1A29004B37A9 /* DataStore.swift in Sources */,
 				E61078131BAB66DC004B37A9 /* LoginHelper.swift in Sources */,
 				E61078111BAB5FFF004B37A9 /* Reachability.swift in Sources */,
 				E610781B1BADE6D2004B37A9 /* StudentLocationHelper.swift in Sources */,

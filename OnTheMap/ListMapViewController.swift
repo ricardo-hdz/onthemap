@@ -103,15 +103,15 @@ class ListMapViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     func setStoredLocations(locations: [StudentLocation]) {
-        DataStore.getInstance().studentLocations = locations
+        StudentLocationDataStore.getInstance().studentLocations = locations
     }
     
     func getStoredLocations() -> [StudentLocation] {
-        return DataStore.getInstance().studentLocations
+        return StudentLocationDataStore.getInstance().studentLocations
     }
     
     func getSortedLocations() -> [StudentLocation] {
-        return DataStore.getInstance().getSortedLocations()
+        return StudentLocationDataStore.getInstance().getSortedLocations()
     }
     
     func handleError(alertTitle: String, error: String) {
